@@ -1,5 +1,5 @@
 <?php
-require_once '../bundles/DatabaseConnection.php';
+require_once '../bundles/DataBaseBundle/DatabaseConnection.php';
 
 $dir = new DirectoryIterator('../migrations');
 $files = [];
