@@ -12,7 +12,6 @@ services:
   - php
  php:
   build:
-    context: ./php-fpm
     dockerfile: Dockerfile
   container_name: php-fpm
   volumes:
