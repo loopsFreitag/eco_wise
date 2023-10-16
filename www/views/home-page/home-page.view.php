@@ -1,15 +1,3 @@
-<?php
-include '../index.php';
-
-session_start();
-
-$user = R::load('user', $_SESSION["user_id"]);
-
-if (!isset($_SESSION["user_id"]) && !$user->id) {
-    header('Location: ../login.php');
-} 
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +11,10 @@ if (!isset($_SESSION["user_id"]) && !$user->id) {
     <?php if (isset($user)) : ?>
         <p>Bem-vindo <?= htmlspecialchars($user->person->name) ?></p>
     <?php endif; ?> 
-    <p><a href="logout.php">Log Out</a></p>
+    <p><a href="/logout">Log Out</a></p>
+
+    <?php foreach ($friends as $friend) : ?>
+        <li><?= htmlspecialchars($user->person->name)  ?></li>
+    <?php endforeach ?>
 </body>
 </html>

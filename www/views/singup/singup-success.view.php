@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Registrado com sucesso</h1>
-    <p>Agora você pode logar em <a href="login.php">login</a>.</p>
+    <p>Agora você pode logar em <a href="/login">login</a>.</p>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <body>
     <h1>Cadastre-se</h1>
 
-    <form action="process_singup.php" method="post">
+    <form action="/singupvalidation" method="post">
         <div>
             <label for="name">Nome</label>
             <input type="text" name="name" id="name">
