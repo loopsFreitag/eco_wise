@@ -2,6 +2,7 @@
 
 require_once(__DIR__ . "/../../bundles/RenderViewBundle/RenderViewBundle.php");
 require_once(__DIR__ . "/../../bundles/UtilisBundle/utilis.php");
+require_once(__DIR__ . "/../../models/PersonModel.php");
 
 class LoginController extends RenderView {
     public function singup () {
@@ -76,8 +77,8 @@ class LoginController extends RenderView {
         $user->status = 1;
         $user->person = $person;
 
-        $idPerson = R::store($person);
-        $idUser = R::store($user);
+        $beans = [$person, $user];
+        R::storeAll($beans);
         $this->LoadView('singup/singup-success');
     }
 

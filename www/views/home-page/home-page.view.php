@@ -14,7 +14,7 @@
     <p><a href="/logout">Log Out</a></p>
 
     <?php foreach ($friends as $friend) : ?>
-        <li><?= htmlspecialchars($user->person->name)  ?></li>
+        <li><?= htmlspecialchars($friend->person->name)  ?></li>
     <?php endforeach ?>
 </body>
 </html>
