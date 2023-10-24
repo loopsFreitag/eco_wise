@@ -7,5 +7,5 @@ require_once 'router/routes.php';
 R::setup('mysql:host=db;dbname=handle',
 'root', 'root');
 
-$router = new Router();
-$router->run($routes);
+$router = new Router($routes);
+$router->run();
