@@ -8,3 +8,12 @@ $routes = [
     "/singupvalidation" => "FO/LoginController@validateSingUp",
     "/logout" => "FO/LoginController@logout",
 ];
+
+$protected = [
+    "/" => false,
+    "/login" => false,
+    "/loginvalidation" => false,
+    "/site/home" => true,
+    "/singupvalidation" => false,
+    "/logout" => true,
+];

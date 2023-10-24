@@ -14,15 +14,19 @@ class LoginController extends RenderView {
     }
 
     public function loginValidataion() {
-        $user = R::findOne('person', "email = ?" , [$_POST["email"]]);
-        if ($user && password_verify($_POST['password'], $user->password)) {
-            session_start();
 
-            session_regenerate_id();
-            $_SESSION["user_id"] = $user->id;
-
-            header("Location: /site/home");
-            exit();
+        if (!empty($_POST["password"]) && !empty($_POST["email"])) {
+            $user = R::findOne('person', "email = ?" , [$_POST["email"]]);
+        
+            if ($user && password_verify($_POST['password'], $user->password)) {
+                session_start();
+    
+                session_regenerate_id();
+                $_SESSION["user_id"] = $user->id;
+    
+                header("Location: /site/home");
+                exit();
+            }
         }
 
         $this->LoadView('login/login', [
