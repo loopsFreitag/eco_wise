@@ -8,7 +8,8 @@ class HomeController extends RenderView{
     public function show () {
         session_start();
         $user = R::load('user', $_SESSION["user_id"]);
-        $friends = R::find('user', 'person_id <> ? ', [$user->id]);
+        $friends = R::find('user', 'person_id <> ? and status = ?', [$user->id, 1]);
+
         $this->LoadView('home-page/home-page', [
             'user' => $user,
             'friends' => $friends,
