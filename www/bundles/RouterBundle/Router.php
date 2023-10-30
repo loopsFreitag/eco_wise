@@ -5,36 +5,48 @@ require(__DIR__ . '/../UtilisBundle/utilis.php');
 require(__DIR__ . '/../../router/routes.php');
 
 class Router {
-    private $routes;
-
-    public function __construct($routes) {
-        $this->routes = $routes;
-    }
-
-    public function run() {
+    
+    public function run($routes) {
         $url = $_SERVER['REQUEST_URI'];
 
-        if ($this->matchRoute($url)) {
-            return; // Route matched and executed
+        $routeFound = false;
+
+        foreach ($routes as $path => $controller) {
+            if ($this->matchRoute($url, $path, $controller)) {
+                $routeFound = true;
+                break;
+            }
         }
 
-        $this->handleNotFound();
+        if (!$routeFound) {
+            $this->handleNotFound();
+        }
     }
 
-    private function matchRoute($url) {
-        // Get the path from the URL
-        $path = parse_url($url, PHP_URL_PATH);
+    private function matchRoute($url, $path, $controller) {
+        $urlParts = explode('/', trim($url, '/'));
+        $pathParts = explode('/', trim($path, '/'));
 
-        if (array_key_exists($path, $this->routes)) {
-            $controller = $this->routes[$path];
-            $this->executeRoute($controller, $path);
-            return true;
+        if (count($urlParts) !== count($pathParts)) {
+            return false;
         }
 
-        return false;
+        $params = [];
+
+        foreach ($pathParts as $key => $part) {
+            if (strpos($part, '{') === 0 && strpos($part, '}') === strlen($part) - 1) {
+                $paramName = trim($part, '{}');
+                $params[$paramName] = $urlParts[$key];
+            } elseif ($part !== $urlParts[$key]) {
+                return false;
+            }
+        }
+
+        $this->executeRoute($controller, $params, $path);
+        return true;
     }
 
-    private function executeRoute($controller, $path) {
+    private function executeRoute($controller, $params, $path) {
         list($currentController, $action) = explode('@', $controller);
         global $protected;
 
@@ -49,7 +61,7 @@ class Router {
         $controller = $matches[1];
 
         $newController = new $controller();
-        $newController->$action();
+        $newController->$action($params);
     }
 
     private function handleNotFound() {

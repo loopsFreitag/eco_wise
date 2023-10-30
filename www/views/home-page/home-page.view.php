@@ -18,29 +18,29 @@
         <div style="display:block;">
             <li>
                 <?= htmlspecialchars($friend->person->name)  ?>
-                <button onclick="addFriend()">add</button>        
+                <button onclick="addFriend(<?= $user->id ?>, <?= $friend->id ?>)">add</button>        
             </li>
         </div>
     <?php endforeach ?>
 </body>
 
 <script>    
-function addFriend() {
-    fetch("/addfriend")
+function addFriend(user_id, friend_id) {
+    url = `/addfriend/${user_id}/${friend_id}`
+
+    fetch(url)
     .then(function (response) {
         if (response.status === 200) {
-            return response.json(); // Parse the response as JSON
+            return response.json();
         } else {
             throw new Error('Request failed with status: ' + response.status);
         }
     })
     .then(function (data) {
-        // Process the JSON data received from the backend
-        console.log(data.key1); // Access data by key
+        console.log(data); 
+
+        location.reload()
     })
-    .catch(function (error) {
-        console.error(error);
-    });
 }
 </script>
 </html>

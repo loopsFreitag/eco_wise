@@ -2,9 +2,12 @@
 
 require_once(__DIR__ . "/../bundles/RenderViewBundle/RenderViewBundle.php");
 
-class NotFoundController extends RenderView {
+class NotFoundController {
+
+    use RenderView;
 
     public function index () {
+        http_response_code(404);
         echo "Not found";
     }
 
