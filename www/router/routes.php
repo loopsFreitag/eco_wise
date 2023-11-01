@@ -7,6 +7,8 @@ $routes = [
     "/site/home" => "FO/HomeController@show",
     "/singupvalidation" => "FO/LoginController@validateSingUp",
     "/logout" => "FO/LoginController@logout",
+    "/addfriend/{friend_id}" => "BO/FriendsController@sendFriendshipRequest",
+    "/acceptfriend/{friend_id}" => "BO/FriendsController@accpetFrindshipRequest"
 ];
 
 $protected = [
@@ -16,4 +18,6 @@ $protected = [
     "/site/home" => true,
     "/singupvalidation" => false,
     "/logout" => true,
+    "/addfriend" => true,
+    "/acceptfriend" => true
 ];

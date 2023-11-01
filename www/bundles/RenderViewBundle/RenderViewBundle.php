@@ -1,6 +1,6 @@
 <?php
 
-class RenderView {
+trait RenderView {
 
     public function LoadView($view, $args = []) {
         extract($args);
