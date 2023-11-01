@@ -3,7 +3,7 @@
 require_once(__DIR__ . "/../../bundles/RenderViewBundle/RenderViewBundle.php");
 require_once(__DIR__ . "/../../bundles/UtilisBundle/utilis.php");
 require_once(__DIR__ . "/../../models/PersonModel.php");
-require_once(__DIR__ . "/../controller.php");
+require_once(__DIR__ . "/../Controller.php");
 
 
 class LoginController extends Controller {
