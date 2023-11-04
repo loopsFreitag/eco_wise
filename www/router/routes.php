@@ -8,7 +8,11 @@ $routes = [
     "/singupvalidation" => "FO/LoginController@validateSingUp",
     "/logout" => "FO/LoginController@logout",
     "/addfriend/{friend_id}" => "BO/FriendsController@sendFriendshipRequest",
-    "/acceptfriend/{friend_id}" => "BO/FriendsController@accpetFrindshipRequest"
+    "/acceptfriend/{friend_id}" => "BO/FriendsController@accpetFrindshipRequest",
+    "/wastecollection" => "BO/WasteCollectionController@index",
+    "/wastecollectioncreation" => "BO/WasteCollectionController@createCollection",
+    "/verifyuser" => "BO/UserController@verifyUser",
+    "/createwastecollection" => "BO/WasteCollectionController@createEvent",
 ];
 
 $protected = [
@@ -19,5 +23,9 @@ $protected = [
     "/singupvalidation" => false,
     "/logout" => true,
     "/addfriend" => true,
-    "/acceptfriend" => true
+    "/acceptfriend" => true,
+    "/wastecollection" =>true,
+    "/wastecollectioncreation" => true,
+    "/verifyuser" => true,
+    "/createwastecollection" => true
 ];

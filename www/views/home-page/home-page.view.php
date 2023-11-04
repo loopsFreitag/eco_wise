@@ -56,7 +56,11 @@
     <?php endif; ?>
     <p><a href="/logout">Log Out</a></p>
 
-    <p><a href="/wastecollection">Coleta de resíduos</a></p>
+    <?php if ($user->type == 2) : ?>
+        <p><a href="/wastecollection">Coleta de resíduos</a></p>
+    <?php else: ?>
+        <p><a href="/wastecollectioncreation">Solicitar coleta</a></p>
+    <?php endif; ?>
 
     <div class="container">
 
