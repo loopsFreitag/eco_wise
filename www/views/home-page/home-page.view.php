@@ -56,6 +56,8 @@
     <?php endif; ?>
     <p><a href="/logout">Log Out</a></p>
 
+    <p><a href="/wastecollection">Coleta de resíduos</a></p>
+
     <div class="container">
 
         <div style="display:flex; flex-direction: column;" class="section">
@@ -102,13 +104,15 @@
     <div class="container-2">
     <div class="section-2">
         <h3>Seus amigos</h3>
-            <?php foreach ($friends as $friend) : ?>
-                <div class="tamanho">
-                    <li>
-                        <?= htmlspecialchars(R::load("user", $friend->id)->person->name)  ?>
-                    </li>
-                </div>
-            <?php endforeach ?>
+            <?php if($friends) : ?>
+                <?php foreach ($friends as $friend) : ?>
+                    <div class="tamanho">
+                        <li>
+                            <?= htmlspecialchars(R::load("user", $friend->id)->person->name)  ?>
+                        </li>
+                    </div>
+                <?php endforeach ?>
+            <?php endif; ?>
         </div>
     </div>
 

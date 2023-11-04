@@ -41,12 +41,16 @@ class Model_User extends RedBean_SimpleModel  {
 
     public function getAllFriends() {
         $friendIds = R::getAll('
-        SELECT requester_id as friend_id FROM friends WHERE friend_id = :user_id
+        SELECT requester_id as friend_id FROM friends WHERE friend_id = :user_id and status = 1
         UNION
-        SELECT friend_id as friend_id FROM friends WHERE requester_id = :user_id
+        SELECT friend_id as friend_id FROM friends WHERE requester_id = :user_id and status = 1
         ', [':user_id' => $this->bean->id]);
 
         $friendIds = array_column($friendIds, 'friend_id');
+
+        if (empty($friendIds)){
+            return [];
+        }
 
         return R::find('user', 'id IN (' . implode(',', $friendIds) . ')');
     }

@@ -18,4 +18,16 @@ class Controller {
 
         die();
     }
+
+    public function getUserAuth(){
+        session_start();
+
+        $user = R::load('user', $_SESSION["user_id"]);
+
+        if (!$user) {
+            $this->hanndleError(404, "user not found");
+        }
+
+        return $user;
+    }
 }
