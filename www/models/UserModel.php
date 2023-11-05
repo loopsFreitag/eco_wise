@@ -8,6 +8,10 @@ class Model_User extends RedBean_SimpleModel  {
         $this->bean->updated_at = date('Y-m-d H:i:s');
     }
 
+    public function dispense(){
+        $this->bean->status = 1;
+    }
+
     public function hasFriendRequestPending($user){
         return (bool) R::findOne("friends", "requester_id = ? and friend_id = ? and status = ?" , [$this->bean->id, $user->id, 0]);
     }

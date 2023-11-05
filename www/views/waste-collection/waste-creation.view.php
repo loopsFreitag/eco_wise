@@ -98,22 +98,34 @@
 
 <div class="container">
 
-    <div style="display:flex; flex-direction: column;" class="section">
-        <h3>Solicite uma coleta</h3>
-        <div class="tamanho">
-            <li>
-                <button onclick="showCollectionCreationModal()">Solicitar coleta</button>
-            </li>
+    <?php if ($wasteCollectionOnGoing) : ?>
+        <div style="display:flex; flex-direction: column;" class="section">
+            <h3>Coleta em andamento:</h3>
+            <div class="tamanho">
+                <li>
+                    <?= $wasteCollectionOnGoing->id ?><button onclick="">Detalhes</button>
+                </li>
+            </div>
         </div>
-    </div>
+
+    <?php else: ?>
+        <div style="display:flex; flex-direction: column;" class="section">
+            <h3>Solicite uma coleta</h3>
+            <div class="tamanho">
+                <li>
+                    <button onclick="showCollectionCreationModal()">Solicitar coleta</button>
+                </li>
+            </div>
+        </div>
+    <?php endif ?>
 
     <div style="display:flex; flex-direction: column;" class="section">
         <h3>Suas coletas anteriores</h3>
-        <?php foreach ($friendsPending as $friend) : ?>
+        <?php foreach ($previusCollections as $collections) : ?>
             <div class="tamanho">
                 <li>
-                    <?= htmlspecialchars(R::load("user", $friend->friend_id)->person->name)  ?>
-                    <button onclick="dontDoShit(<?= $user->id ?>, <?= $friend->id ?>)">Cancelar</button>
+                    <?= $collections->id ?>
+                    <button onclick="">Detalhes</button>
                 </li>
             </div>
         <?php endforeach ?>
@@ -134,13 +146,28 @@
     <div class="modal-content">
         <span class="close">&times;</span>
 
-        <form action="/createwastecollection" method="post">
+        <form id="wasteCollectionCreation">
             <label for="description">Descição:</label>
             <textarea name="description" id="description" rows="4" cols="50">
             </textarea>
 
             <label for="weight">Peso (Kg):</label>
             <input type="number" step="0.1" min="p" name="weight" id="weight" onkeypress="return isNumberKey(event)">
+
+            <label for="datePicker">Selecione a data da coleta:</label>
+            <input type="date" id="datePicker" value="<?= date('Y-m-d'); ?>" min="<?= date('Y-m-d'); ?>" required>
+
+            <label for="timePicker">Selecione o horario da coleta:</label>
+            <select id="timePicker" required>
+                <?php
+                for ($hour = 0; $hour < 24; $hour++) {
+                    for ($minute = 0; $minute < 60; $minute += 30) {
+                        $time = sprintf('%02d:%02d', $hour, $minute);
+                        echo "<option value=\"$time\">$time</option>";
+                    }
+                }
+                ?>
+            </select>
 
             <label for="cep">CEP:</label>
             <input type="text" id="cep" name="cep" placeholder="Digite o CEP" onfocusout="getCep()" required>
@@ -163,7 +190,7 @@
             <label for="uf">Estado:</label>
             <input type="text" id="uf" name="uf" readonly>
 
-            <button>criar</button>
+            <button type="button" onclick="submitCollectionCreation()">criar</button>
         </form>
     </div>
 </div>
@@ -197,7 +224,6 @@
                     var modal = document.getElementById("ModalFormCollection")
                     modal.style.display = "block"
                 }
-                //location.reload()
             }).catch((error) => {
             console.log(error)
         });
@@ -230,43 +256,73 @@
     }
 
     function isNumberKey(evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        var inputValue = evt.target.value;
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        var inputValue = evt.target.value
 
         if ((charCode >= 48 && charCode <= 57) || charCode == 8 || (charCode == 46 && inputValue.indexOf('.') === -1)) {
             if (inputValue.indexOf('.') !== -1 && inputValue.split('.')[1].length >= 1) {
-            return false;
+            return false
             }
-            return true;
+            return true
         }
 
-        return false;
+        return false
     }
 
     function fillFormFields(data) {
         if (data.erro) {
-        alert("CEP não encontrado");
+        alert("CEP não encontrado")
         } else {
-            document.getElementById("address").value = data.logradouro;
-            document.getElementById("neighborhood").value = data.bairro;
-            document.getElementById("city").value = data.localidade;
-            document.getElementById("uf").value = data.uf;
+            document.getElementById("address").value = data.logradouro
+            document.getElementById("neighborhood").value = data.bairro
+            document.getElementById("city").value = data.localidade
+            document.getElementById("uf").value = data.uf
         }
     }
 
     function getCep() {
         const cepInput = document.getElementById("cep").value;
-        const url = `https://viacep.com.br/ws/${cepInput}/json/`;
+        const url = `https://viacep.com.br/ws/${cepInput}/json/`
 
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-            fillFormFields(data);
+            fillFormFields(data)
             })
             .catch((error) => {
-            console.error("Erro na requisição:", error);
-            });
+            console.error("Erro na requisição:", error)
+            })
     } 
+
+    function submitCollectionCreation () {
+        var form = document.getElementById('wasteCollectionCreation')
+
+        var formData = new FormData(form)
+        console.log(formData)
+
+        url = '/createwastecollection'
+       
+        fetch(url, {
+        method: 'POST',
+        body: formData,
+        })
+        .then(response => {
+        if (response.status === 201) {
+            return response.json()
+        } else {
+            throw new Error('Network response was not ok')
+        }
+        })
+        .then(data => {
+        console.log(data)
+        location.reload()
+        })
+        .catch(error => {
+        console.error('Fetch Error:', error)
+        });
+
+    }
+
 </script>
 
 </html>

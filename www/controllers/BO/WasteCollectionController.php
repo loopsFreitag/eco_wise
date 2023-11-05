@@ -1,7 +1,8 @@
 <?php
 
 require_once(__DIR__ . "/../../models/UserModel.php");
-require_once(__DIR__ . "/../../models/FriendsModel.php");
+require_once(__DIR__ . "/../../models/AddressModel.php");
+require_once(__DIR__ . "/../../models/Waste_CollectionModel.php");
 require_once(__DIR__ . "/../Controller.php");
 require_once(__DIR__ . "/../../bundles/RenderViewBundle/RenderViewBundle.php");
 require_once(__DIR__ . "/../UnauthorizedController.php");
@@ -33,8 +34,14 @@ class WasteCollectionController extends Controller {
             $unauthorized->index();
         }
 
+        $previusCollections = R::find('waste_collection', 'user_id = ? and status = ?', [$user->id, 2]);
+
+        $wasteCollectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status = ?', [$user->id, 1]);
+
         $this->LoadView('waste-collection/waste-creation', [
-            'user' => $user
+            'user' => $user,
+            'previusCollections' => $previusCollections,
+            'wasteCollectionOnGoing' => $wasteCollectionOnGoing
         ]);
     }
 
@@ -56,19 +63,19 @@ class WasteCollectionController extends Controller {
         if (empty($address)) {
             $address = $this->createAdress($user->id);
         }
+        echo json_encode($_POST);
 
-        $collection = R::dispense("waste_collection"); ///// aqui
+        $collection = R::xdispense("waste_collection");
         $collection->import($_POST, "description, weight");
-        $collection->requester_id = $user->id;
-        $collection->status = 1;
+        $collection->user_id = $user->id;
 
         R::store($collection);
 
-        $adressCollection = R::dispense("address_collection");
+        $adressCollection = R::xdispense("address_collection");
         $adressCollection->collection_id = $collection;
         $adressCollection->address_id = $address;
         
-        return $this->response(201);
+        $this->response(201);
     }
 
     public function validateRequest() {
@@ -85,7 +92,6 @@ class WasteCollectionController extends Controller {
         $address = R::dispense("address");
         $address->user_id = $userId;
         $address->import($_POST, "cep, uf, city, neighborhood, address, number");
-        $address->status = 1;
         if ($_POST["adjunct"]) {
             $address->adjunct = $_POST["adjunct"];
         }

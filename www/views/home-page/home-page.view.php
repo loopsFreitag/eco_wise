@@ -135,8 +135,6 @@
                 }
             })
             .then(function(data) {
-                console.log(data);
-
                 location.reload()
             })
     }
@@ -153,8 +151,6 @@
                 }
             })
             .then(function(data) {
-                console.log(data);
-
                 location.reload()
             })
 
