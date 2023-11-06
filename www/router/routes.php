@@ -13,6 +13,7 @@ $routes = [
     "/wastecollectioncreation" => "BO/WasteCollectionController@createCollection",
     "/verifyuser" => "BO/UserController@verifyUser",
     "/createwastecollection" => "BO/WasteCollectionController@createEvent",
+    "/cancelcollection/{id}" => "BO/WasteCollectionController@cancelEvent",
 ];
 
 $protected = [
@@ -27,5 +28,6 @@ $protected = [
     "/wastecollection" =>true,
     "/wastecollectioncreation" => true,
     "/verifyuser" => true,
-    "/createwastecollection" => true
+    "/createwastecollection" => true,
+    "/cancelcollection" => true,
 ];

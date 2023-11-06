@@ -34,7 +34,7 @@ class WasteCollectionController extends Controller {
             $unauthorized->index();
         }
 
-        $previusCollections = R::find('waste_collection', 'user_id = ? and status = ?', [$user->id, 2]);
+        $previusCollections = R::find('waste_collection', 'user_id = ? and status not in (1,2)', [$user->id]);
 
         $wasteCollectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status = ?', [$user->id, 1]);
 
@@ -59,21 +59,24 @@ class WasteCollectionController extends Controller {
         $this->validateRequest();
 
         $address = $this->addressRegistered($user->id);
+        $address = $address->id;
 
         if (empty($address)) {
             $address = $this->createAdress($user->id);
         }
-        echo json_encode($_POST);
 
         $collection = R::xdispense("waste_collection");
         $collection->import($_POST, "description, weight");
         $collection->user_id = $user->id;
+        $collection->collection_time = $_POST["datePicker"] . ' ' . $_POST["timePicker"];
 
-        R::store($collection);
+        $collection = R::store($collection);
 
         $adressCollection = R::xdispense("address_collection");
         $adressCollection->collection_id = $collection;
         $adressCollection->address_id = $address;
+        
+        R::store($adressCollection);
         
         $this->response(201);
     }
@@ -85,7 +88,7 @@ class WasteCollectionController extends Controller {
     }
 
     public function addressRegistered($userId) {
-        return R::find("address", "user_id = ? and cep = ?", [$userId, $_POST["cep"]]);
+        return R::findOne("address", "user_id = ? and cep = ?", [$userId, $_POST["cep"]]);
     }
 
     public function createAdress($userId) {
@@ -96,6 +99,14 @@ class WasteCollectionController extends Controller {
             $address->adjunct = $_POST["adjunct"];
         }
         return R::store($address);
+    }
+
+    public function cancelEvent ($request) {
+        $colletion = R::load("waste_collection", $request["id"]);
+        $colletion->status = 3;
+        //var_dump($request);
+        R::store($colletion);
+        $this->response("200", "canceled");
     }
 
 }
