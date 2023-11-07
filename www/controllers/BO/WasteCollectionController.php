@@ -101,10 +101,13 @@ class WasteCollectionController extends Controller {
         return R::store($address);
     }
 
+    /*
+    * /cancelcollection
+    */
     public function cancelEvent ($request) {
         $colletion = R::load("waste_collection", $request["id"]);
         $colletion->status = 3;
-        //var_dump($request);
+        $colletion->denny_reason = $_POST["denny_reason"];
         R::store($colletion);
         $this->response("200", "canceled");
     }

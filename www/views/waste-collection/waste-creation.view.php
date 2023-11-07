@@ -268,12 +268,24 @@
                     <label for="uf">Estado:</label>
                     <input type="text" value="<?= $address->uf ?>" readonly>
 
-                    <button type="button" onclick="cancelCollectionCreation(<?= $wasteCollectionOnGoing->id  ?>)">Cancelar solicitação</button>
+                    <button type="button" onclick="opencancelModal()">Cancelar solicitação</button>
                 </form>
             <?php endif ?>
         </div>
     </div>
 
+    <div id="ModalCancel" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="wasteCollectionCancelation">
+                <label for="denny_reason">Razão do cancelamento:</label>
+                <input name="denny_reason">
+                <?php if ($wasteCollectionOnGoing) : ?>
+                    <button type="button" onclick="cancelCollectionCreation(<?= $wasteCollectionOnGoing->id  ?>)">Cancelar solicitação</button>
+                <?php endif ?>
+            </form>
+        </div>
+    </div>
 
 </body>
 
@@ -308,54 +320,16 @@
             });
     }
 
-    var modalErr = document.getElementById("ModalError")
-    var span = document.getElementsByClassName("close")[0]
-
-    span.onclick = function() {
-        modalErr.style.display = "none"
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modalErr) {
-            modalErr.style.display = "none"
-        }
-    }
-
-    var modal = document.getElementById("ModalFormCollection")
-    var span = document.getElementsByClassName("close")[1]
-
-    span.onclick = function() {
-        modal.style.display = "none"
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none"
-        }
-    }
-
-    var modalDetails = document.getElementById("ModalCollectionDetails")
-    var spanDetails = document.getElementsByClassName("close")[2]
-
-    spanDetails.onclick = function() {
-        modalDetails.style.display = "none"
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modalDetails.style.display = "none"
-        }
-    }
-
-    function openDetailsModel() {
-        var modal = document.getElementById("ModalCollectionDetails")
-        modal.style.display = "block"
-    }
-
     function cancelCollectionCreation(collection_id) {
+        var form = document.getElementById("wasteCollectionCancelation")
         url = `/cancelcollection/${collection_id}`
 
-        fetch(url)
+        var formData = new FormData(form)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
             .then(function(response) {
                 if (response.status === 200) {
                     return response.json()
@@ -413,7 +387,6 @@
         var form = document.getElementById('wasteCollectionCreation')
 
         var formData = new FormData(form)
-        console.log(formData)
 
         url = '/createwastecollection'
 
@@ -437,6 +410,57 @@
 
     }
 
+    function opencancelModal() {
+        var modal = document.getElementById("ModalCancel")
+        modal.style.display = "block"
+    }
+    
+    function openDetailsModel() {
+        var modal = document.getElementById("ModalCollectionDetails")
+        modal.style.display = "block"
+    }
+
+    // Get the modal elements
+    const modalError = document.getElementById('ModalError');
+    const modalFormCollection = document.getElementById('ModalFormCollection');
+    const modalCollectionDetails = document.getElementById('ModalCollectionDetails');
+    const modalCancel = document.getElementById('ModalCancel');
+
+    // Get the span elements that close the modals
+    const spanError = document.getElementsByClassName("close")[0];
+    const spanFormCollection = document.getElementsByClassName("close")[1];
+    const spanCollectionDetails = document.getElementsByClassName("close")[2];
+    const spanCancel = document.getElementsByClassName("close")[3];
+
+    // When the user clicks on the span, close the modal
+    spanError.onclick = function() {
+    modalError.style.display = "none";
+    }
+
+    spanFormCollection.onclick = function() {
+    modalFormCollection.style.display = "none";
+    }
+
+    spanCollectionDetails.onclick = function() {
+    modalCollectionDetails.style.display = "none";
+    }
+
+    spanCancel.onclick = function() {
+    modalCancel.style.display = "none";
+    }
+
+    // When the user clicks outside the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modalError) {
+        modalError.style.display = "none";
+    } else if (event.target == modalFormCollection) {
+        modalFormCollection.style.display = "none";
+    } else if (event.target == modalCollectionDetails) {
+        modalCollectionDetails.style.display = "none";
+    } else if (event.target == modalCancel) {
+        modalCancel.style.display = "none";
+    }
+    }
 
 </script>
 
