@@ -54,4 +54,28 @@ class Model_User extends RedBean_SimpleModel  {
 
         return R::find('user', 'id IN (' . implode(',', $friendIds) . ')');
     }
+
+    public function getDocument() {
+        return $this->bean->person->document;
+    }
+
+    public function getCountry() {
+        return $this->bean->person->country;
+    }
+
+    public function getBirthDate() {
+        return $this->bean->person->birth_date;
+    }
+
+    public function isUserAdmin() {
+        return $this->bean->type == 3;
+    }
+
+    public function isUserCollector() {
+        return $this->bean->type == 2;
+    }
+
+    public function haveCollectionOnTime($date) {
+        return (bool) R::find("waste_collection", "waste_collector = ? and collection_time = ?", [$this->bean->id, $date]);
+    }
 }

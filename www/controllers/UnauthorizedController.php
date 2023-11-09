@@ -8,8 +8,7 @@ class UnauthorizedController {
 
     public function index () {
         http_response_code(404);
-        echo "Unauthorized";
-        exit();
+        $this->LoadView('errors/unauthorized');
     }
 
 }

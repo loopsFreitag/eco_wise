@@ -88,7 +88,7 @@ class LoginController extends Controller {
 
         $beans = [$person, $user];
         R::storeAll($beans);
-        $this->LoadView('singup/singup-success');
+        $this->LoadView('login/login');
     }
 
     public function logout() {

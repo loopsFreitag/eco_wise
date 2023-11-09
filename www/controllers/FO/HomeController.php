@@ -17,10 +17,10 @@ class HomeController extends Controller
 
         $this->LoadView('home-page/home-page', [
             'user' => $user,
-            'potentialFriends' => $user->getPotentialFriends(),
-            'friendsPending' => $user->getFriendshipRequestPending(),
-            'friendsToAceppt' => $user->getFriendshipRequestToAccpet(),
-            'friends' => $user->getAllFriends()
+            //'potentialFriends' => $user->getPotentialFriends(),
+            //'friendsPending' => $user->getFriendshipRequestPending(),
+            //'friendsToAceppt' => $user->getFriendshipRequestToAccpet(),
+            //'friends' => $user->getAllFriends()
         ]);
     }
 }

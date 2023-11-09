@@ -8,7 +8,7 @@ class NotFoundController {
 
     public function index () {
         http_response_code(404);
-        echo "Not found";
+        $this->LoadView('errors/not-found');
     }
 
 }
