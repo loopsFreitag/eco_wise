@@ -78,4 +78,8 @@ class Model_User extends RedBean_SimpleModel  {
     public function isUserCollector() {
         return $this->bean->type == 2;
     }
+
+    public function haveCollectionOnTime($date) {
+        return (bool) R::find("waste_collection", "waste_collector = ? and collection_time = ?", [$this->bean->id, $date]);
+    }
 }

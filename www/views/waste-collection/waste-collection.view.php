@@ -55,6 +55,40 @@
     <p>Bem-vindo <?= htmlspecialchars($user->person->name) ?></p>
 <?php endif; ?>
 
+<div style="display:flex; flex-direction: column;" class="section">
+    <?php if (!empty($openCollections)) : ?>
+    <h3>Coletas disponiveis</h3>
+    <?php foreach ($openCollections as $collections) : ?>
+        <div class="tamanho">
+            <li>
+            <?= $collections->id ?>
+            <a href="/collection/<?= $collections->id ?>">Detalhes</a>
+            </li>
+        </div>
+    <?php endforeach ?>
+    <?php else: ?>
+    <h3>Sem coletas disponiveis</h3>
+    <?php endif ?>
+
+</div>
+
+<div style="display:flex; flex-direction: column;" class="section">
+    <?php if (!empty($collectionScheduled)) : ?>
+    <h3>Coletas disponiveis</h3>
+    <?php foreach ($collectionScheduled as $collections) : ?>
+        <div class="tamanho">
+            <li>
+            <?= $collections->id ?>
+            <a href="/collection/<?= $collections->id ?>">Detalhes</a>
+            </li>
+        </div>
+    <?php endforeach ?>
+    <?php else: ?>
+    <h3>Sem coletas marcadas</h3>
+    <?php endif ?>
+
+</div>
+
 </body>
 
 <script>

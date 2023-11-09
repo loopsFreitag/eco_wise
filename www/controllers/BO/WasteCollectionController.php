@@ -18,8 +18,14 @@ class WasteCollectionController extends Controller {
 
         $user = $this->getUserAuth();
 
+        $openCollections = R::find("waste_collection", "status = 1");
+
+        $collectionScheduled = R::find("waste_collection", "status = ? and waste_collector = ?", [2, $user->id] );
+
         $this->LoadView('waste-collection/waste-collection', [
-            'user' => $user
+            'user' => $user,
+            'openCollections' => $openCollections,
+            'collectionScheduled' => $collectionScheduled
         ]);
     }
 
@@ -36,7 +42,7 @@ class WasteCollectionController extends Controller {
 
         $previusCollections = R::find('waste_collection', 'user_id = ? and status not in (1,2)', [$user->id]);
 
-        $wasteCollectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status = ?', [$user->id, 1]);
+        $wasteCollectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id, 1, 2]);
 
         $this->LoadView('waste-collection/waste-creation', [
             'user' => $user,
@@ -112,4 +118,68 @@ class WasteCollectionController extends Controller {
         $this->response("200", "canceled");
     }
 
+    /*
+    * /collection/{collection_id}
+    */
+    public function collectionDetails ($request) {
+        $collection = R::load("waste_collection", $request["collection_id"]);
+
+        if (!$collection) {
+            $unauthorized = new UnauthorizedController();
+            $unauthorized->index();
+        }
+
+        $user = $this->getUserAuth();
+
+        if ($user->type == 2){
+            if (!empty($collection->waste_collector) && $collection->waste_collector != $user->id) {
+                $unauthorized = new UnauthorizedController();
+                $unauthorized->index();
+            }
+        }
+
+        $this->LoadView('waste-collection/waste-collection-details', [
+            'user' => $user,
+            'collection' => $collection
+        ]);
+    }
+
+    public function acceptCollection($request) {
+        $collection = R::load("waste_collection", $request["collection_id"]);
+
+        if (!$collection) {
+            $unauthorized = new UnauthorizedController();
+            $unauthorized->index();
+        }
+
+        $user = $this->getUserAuth();
+
+        if($user->haveCollectionOnTime($collection->collection_time)){
+            $this->hanndleError(400, "is bussy on that time");
+        }
+
+        $collection->waste_collector = $user->id;
+        $collection->status = 2;
+        $collection->code = $this->generateRandomString(4);
+
+        R::store($collection);
+    }
+
+    public function generateRandomString($length) {
+        $randomCode = '';
+        for ($i = 0; $i < $length; $i++) {
+          $randomCode .= rand(0, 9);
+        }
+        return $randomCode;
+    }
+
+    public function collectionInfo() {
+        session_start();
+        $user = R::load('user', $_SESSION["user_id"]);
+
+        $this->LoadView('waste-collection/waste-collection-info', [
+            'user' => $user
+        ]);
+
+    }
 }

@@ -135,7 +135,8 @@
                 <div class="tamanho">
                     <li>
                         <?= $collections->id ?>
-                        <button onclick="">Detalhes</button>
+                        <a href="/collection/<?= $collections->id ?>">Detalhes</a>
+
                     </li>
                 </div>
             <?php endforeach ?>
