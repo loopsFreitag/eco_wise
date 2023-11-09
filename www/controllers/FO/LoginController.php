@@ -3,6 +3,7 @@
 require_once(__DIR__ . "/../../bundles/RenderViewBundle/RenderViewBundle.php");
 require_once(__DIR__ . "/../../bundles/UtilisBundle/utilis.php");
 require_once(__DIR__ . "/../../models/PersonModel.php");
+require_once(__DIR__ . "/../../models/UserModel.php");
 require_once(__DIR__ . "/../Controller.php");
 
 
@@ -83,7 +84,6 @@ class LoginController extends Controller {
 
         $user = R::dispense('user');
         $user->type = 1;
-        $user->status = 1;
         $user->person = $person;
 
         $beans = [$person, $user];
