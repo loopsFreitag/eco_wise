@@ -244,7 +244,7 @@
 <body>
     <div class="home">
         <i class="fa-solid fa-house" style="color: #4377d0;"></i>
-        <a href="/home.html" class="texto-home">Home</a>
+        <a href="/site/home" class="texto-home">Home</a>
     </div>
     <div class="container">
         <div class="titulo">
