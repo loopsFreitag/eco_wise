@@ -51,6 +51,10 @@
         background-position-y: 1500px;
     }
 
+    main h1{
+        animation:fade-up 1s;
+    }
+
     /* ========================== Definicao  =======================================*/
     .definicao h1 {
         text-align: center;
@@ -58,12 +62,14 @@
         font-size: 50px;
         color: #000000;
         border-bottom: 1px solid silver;
+        animation:fade-up 1s;
     }
 
     .texto-definicao {
         display: flex;
         justify-content: center;
         margin: 0 15em;
+        animation:fade-up 1s;
     }
 
     .texto-definicao p {
@@ -76,6 +82,10 @@
     }
 
     /* ========================== Listas =======================================*/
+    .conteudo{
+        animation:fade-up 1s;
+    }
+    
     .conteudo ul {
         padding-top: 1rem;
         font-size: 20px;
@@ -167,6 +177,19 @@
         border-radius: 10px;
         height: 45em;
     }
+    
+    @keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.9);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(0px) scale(1) ;
+    }
+}
+    
 </style>
 
 <body>

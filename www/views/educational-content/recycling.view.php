@@ -50,6 +50,7 @@
             border-radius: 10px;
             border: 8px solid white;
             margin-top: 8em;
+            animation:lateral 1s;
         }
 
         /* =========================== conteudo ===========================*/
@@ -67,6 +68,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            animation:fade-up 1s;
         }
 
         .conteudo1 h3 {
@@ -92,6 +94,7 @@
         .conteudo1-img img {
             width: 38%;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            animation:fade-up 1s;
         }
 
         .conteudo1-img table {
@@ -103,6 +106,7 @@
             border-radius: 5px 5px 0 0;
             overflow: hidden;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            animation:fade-up 1s;
         }
 
         .conteudo1-img table tr th {
@@ -142,9 +146,9 @@
             padding-bottom: 2em;
             display: flex;
             justify-content: center;
-
             flex-direction: column;
             background-color: #f4f4f4;
+            animation:fade-up 1s;
         }
 
         .conteudo2 h3 {
@@ -168,6 +172,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            animation:fade-up 1s;
         }
 
         .conteudo3 h3 {
@@ -182,6 +187,31 @@
             font-size: 20px;
             text-align: justify;
         }
+
+        
+    @keyframes fade-up {
+        0% {
+            opacity: 0;
+            transform: translateY(100px) scale(0.9);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+        }
+    }
+
+    @keyframes lateral {
+        0% {
+            opacity: 0;
+            transform: translateX(400px) scale(0.9);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(0px) scale(1);
+        }
+    }
     </style>
 
     <body>

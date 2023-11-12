@@ -43,11 +43,18 @@ main{
     text-transform: uppercase;
     color: var(--cor-3);
     background-image: url(https://static.portaldaindustria.com.br/media/filer_public/8f/4c/8f4c4cf0-3640-4331-8ed7-56f39efd4a48/desmatamento.jpg);
-    background-size: cover;
-    
+    background-size: cover;    
+}
+
+main h1{
+    animation:fade-up 1s;
 }
 
 /* ========================== Definicao  =======================================*/
+.definicao {
+    animation:fade-up 1s;
+}
+
 .definicao h1 {
     text-align: center;
     padding-top: 4rem;
@@ -79,6 +86,7 @@ strong{
 .conteudo {
     margin: 0 7.2em;
     padding-bottom: 5em;
+    animation:fade-up 1s;
 }
 
 
@@ -100,7 +108,8 @@ strong{
     display:flex ;
     justify-content: center;
     flex-direction: column;
-    align-items: center
+    align-items: center;
+    animation:fade-up 1s;
 }
 
 .imagem p {
@@ -113,6 +122,7 @@ strong{
     border-radius: 10px;
     width: 40%;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    
 }
 
 .imagem-2{
@@ -126,6 +136,7 @@ strong{
     width: 40%;
     border-radius: 10px;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    animation:fade-up 1s;
 }
 /* ========================== Listas =======================================*/
 .conteudo ul {
@@ -139,6 +150,17 @@ strong{
     padding-top: 0.5em;
 }
 
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.9);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(0px) scale(1) ;
+    }
+}
 
 </style>
 <body>

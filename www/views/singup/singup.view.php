@@ -74,7 +74,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: var(--cor-2);
+        background-color:rgb(22, 99, 152);
         width: 40%;
         height: auto;
         color: white;
@@ -97,7 +97,7 @@
         height: 30%;
         margin-top: 70px;
         font-weight: 800;
-        color: var(--cor-6);
+        color: rgb(22, 99, 152);
     }
 
     .parte-inputs {
@@ -124,7 +124,7 @@
 
     .inputs {
         outline: none;
-        border: 1px solid var(--cor-5);
+        border: 1px solid silver;
         border-radius: 5px;
         width: 80%;
         padding: 20px 10px 20px;
@@ -144,14 +144,14 @@
         margin-top: 4rem;
         cursor: pointer;
         width: 70%;
-        background-color: var(--cor-6);
+        background-color: #2caaa0;
         color: white;
     }
 
     .botao-cadastrar:hover {
-        background-color: #ffffff;
+        background-color: #16988b;
         border: 1px solid var(--cor-6);
-        color: var(--cor-6);
+        color: white;
     }
 
     .login {
@@ -165,8 +165,7 @@
     }
 
     .login:hover {
-        background-color: var(--cor-7);
-        color: white;
+        background-color: #ebebeb;
     }
 
     .login a {
@@ -179,23 +178,18 @@
         font-size: 20px;
     }
 
-    .home {
-        display: flex;
-        position: absolute;
-        top: 0;
-        padding: 10px;
+    .home button {
+        position:absolute;
+        top:0.6em;
+        left:0.6em;
         font-size: 30px;
-        width: 100%;
-        background-color: #f5f5f5;
+        border:none;
     }
 
-    .home a {
-        padding-left: 5px;
-        text-decoration: none;
-        color: var(--cor-2);
+    
+    .home button i:hover{
+        cursor:pointer;
     }
-
-
 
 
 
@@ -243,15 +237,14 @@
 
 <body>
     <div class="home">
-        <i class="fa-solid fa-house" style="color: #4377d0;"></i>
-        <a href="/site/home" class="texto-home">Home</a>
+        <button onclick="window.location='/site/home'"><i class="fa-solid fa-house" style="color: #4377d0;"></i></button>
     </div>
     <div class="container">
         <div class="titulo">
             <h1>Login</h1>
             <p>Ja possui um cadastro?</p>
             <p>Realize o login abaixo</p>
-            <button class="login" onclick="window.location.href = 'login.html'">Login</button>
+            <button class="login" onclick="window.location.href = '/login'">Login</button>
         </div>
         <form action="/singupvalidation" method="post" onsubmit="return validateRequest()">
             <div class="titulo-form">

@@ -1,149 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suas coletas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style_coleta_usuario.css">
+    <title>Document</title>
 </head>
-
 <style>
-    * {
-        box-sizing: border-box;
-        list-style-type: none;
-    }
+* {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+:root {
+    --cor-1: #508b5b;
+    --cor-2: #4da2e3; 
+    --cor-3: #40bf80;
+    --cor-4: #218c75;
+    --cor-5: #207e20;
+    --cor-6: #3e9037;
+    --cor-7: #2c52ed;
+    --cor-8: #8ec2c7;
+
+}
+
+.criar-coleta{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 40em;
+}
+
+.container{
+    margin-top: 10em;
+    display: flex;
+    width: 90em;
+    height: 42em;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.dados-coleta{
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top:5em ;
+    
+}
+
+.dados-coleta p {
+    padding-top: 1rem;
+    line-height: 1.2;
+    font-size: 20px;
+    text-align: justify;
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+.dados-coleta h1{
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.dados-coleta button{
+    font-size: 16px;
+    padding: 1em;
+    border: none;
+    font-size: 20px;
+    background-color: var(--cor-3);
+    border-radius: 10px;
+    color: white;
+    margin-top: 3em;
+    width: 50%;
+}
+
+.dados-coleta button:hover{
+    background-color: rgb(70, 129, 70);
+    cursor: pointer;
+}
 
 
-    .container {
-        display: flex;
-        max-width: 100%;
-        justify-content: space-evenly;
-    }
+.imagem-coleta img {
+    max-width: 100%;
+    height: 70%;
+    padding-left: 5em;
 
-    .section {
-        border: 2px solid black;
-        max-width: 25%;
+}
 
-    }
 
-    .tamanho li {
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-    }
+.imagem-coleta {
+   width: 45%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
 
-    .container-2 {
-        display: flex;
-        justify-content: center;
-        padding-top: 2em;
-    }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
 
-    .section-2 {
-        width: 100%;
-        border: 2px solid black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+/* Estilos do conteúdo do modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+    max-width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
-    /* The Modal (background) */
-    .modal {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
-        overflow: auto;
-        /* Enable scroll if needed */
-        background-color: rgb(0, 0, 0);
-        /* Fallback color */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
-    }
+/* Estilos para o botão de fechar */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 
-    /* Modal Content/Box */
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos dos inputs */
+.input-dentro {
+    flex: 0 0 30%; /* Define a largura dos inputs para 30% do espaço disponível */
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#datePicker {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.botao-criar{
+    display:flex;
+    justify-content:center;
+}
+
+.criar {
+    background-color: #4CAF50; /* Cor de fundo do botão */
+    color: white; /* Cor do texto */
+    padding: 15px 20px; /* Espaçamento interno do botão */
+    border: none; /* Remove a borda */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width:60%;
+}
+
+.criar:hover {
+    background-color: #45a049; /* Mudança de cor ao passar o mouse */
+}
+
+/* Estilos para a responsividade */
+@media (max-width: 768px) {
     .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        /* Could be more or less, depending on screen size */
+        width: 90%;
     }
-
-    /* The Close Button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
+    .input-dentro {
+        flex: 0 0 100%; /* Para telas menores, faz os inputs ocuparem toda a largura */
     }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+}
 </style>
-
 <body>
-    <h1>Suas coletas</h1>
-    <?php if (isset($user)) : ?>
-        <p>Bem-vindo
-            <?= htmlspecialchars($user->person->name) ?>
-        </p>
-    <?php endif; ?>
+<?php include_once(__DIR__ . "/../header/header-waste-collection.php")?>
+    <section>
+        <div class="criar-coleta">
+            <div class="container">
+                <div class="imagem-coleta">
+                    <img src="https://img.freepik.com/premium-vector/delivery-boy-deliver-package_354831-58.jpg" alt="">
+                    
+                </div>
 
-    <div class="container">
 
-        <?php if ($wasteCollectionOnGoing) : ?>
-            <div style="display:flex; flex-direction: column;" class="section">
-                <h3>Coleta em andamento:</h3>
-                <div class="tamanho">
-                    <li>
-                        <?= $wasteCollectionOnGoing->id ?><button onclick="openDetailsModel()">Detalhes</button>
-                    </li>
+                <div class="dados-coleta"> 
+                    <h1>Quer Fazer a Diferença?</h1>
+                    <p>Sua participação é essencial. Junte-se a nós e faça parte dessa mudança. Ao coletar seu lixo, você está contribuindo para um mundo mais limpo, para comunidades mais seguras e para a preservação da natureza. Cada garrafa plástica, cada papel ou embalagem recolhidos fazem a diferença.</p>
+                    <p>Dê o primeiro passo para uma mudança significativa. Aperte o botão abaixo para se comprometer com a coleta do seu lixo e inspire outros a fazerem o mesmo. Juntos, podemos criar um impacto positivo duradouro. Não subestime o poder da sua ação. Vamos começar!</p>
+                    <button onclick="showCollectionCreationModal()">Coletar Meu Lixo</button>
                 </div>
             </div>
-
-        <?php else : ?>
-            <div style="display:flex; flex-direction: column;" class="section">
-                <h3>Solicite uma coleta</h3>
-                <div class="tamanho">
-                    <li>
-                        <button onclick="showCollectionCreationModal()">Solicitar coleta</button>
-                    </li>
-                </div>
-            </div>
-        <?php endif ?>
-
-        <div style="display:flex; flex-direction: column;" class="section">
-            <h3>Suas coletas anteriores</h3>
-            <?php foreach ($previusCollections as $collections) : ?>
-                <div class="tamanho">
-                    <li>
-                        <?= $collections->id ?>
-                        <a href="/collection/<?= $collections->id ?>">Detalhes</a>
-
-                    </li>
-                </div>
-            <?php endforeach ?>
-
         </div>
-
-    </div>
+    </section>
 
     <div id="ModalError" class="modal">
         <div class="modal-content">
@@ -158,140 +236,89 @@
             <span class="close">&times;</span>
 
             <form id="wasteCollectionCreation">
-                <label for="description">Descição:</label>
-                <textarea name="description" id="description" rows="4" cols="50">
-            </textarea>
+                <div class="input-dentro">
+                    <label for="description">Descição:</label>
+                    <textarea name="description" id="description" rows="4" cols="50"></textarea>
+                </div>
 
-                <label for="weight">Peso (Kg):</label>
-                <input type="number" step="0.1" min="p" name="weight" id="weight" onkeypress="return isNumberKey(event)">
-
-                <label for="datePicker">Selecione a data da coleta:</label>
-                <input type="date" id="datePicker" name="datePicker" value="<?= date('Y-m-d'); ?>" min="<?= date('Y-m-d'); ?>" required>
-
-                <label for="timePicker">Selecione o horario da coleta:</label>
-                <select id="timePicker" name="timePicker" required>
-                    <?php
-                    for ($hour = 0; $hour < 24; $hour++) {
-                        for ($minute = 0; $minute < 60; $minute += 30) {
-                            $time = sprintf('%02d:%02d', $hour, $minute);
-                            echo "<option value=\"$time\">$time</option>";
+                <div class="input-dentro">
+                    <label for="weight">Peso (Kg):</label>
+                    <input type="number" step="0.1" min="p" name="weight" id="weight" onkeypress="return isNumberKey(event)">
+                </div>
+                
+                <div class="input-dentro">
+                    <label for="datePicker">Selecione a data da coleta:</label>
+                    <input type="date" id="datePicker" name="datePicker" value="<?= date('Y-m-d'); ?>" min="<?= date('Y-m-d'); ?>" required>
+                </div>  
+                
+                
+                <div class="input-dentro">
+                    <label for="timePicker">Selecione o horario da coleta:</label>
+                    <select id="timePicker" name="timePicker" required>
+                        <?php
+                        for ($hour = 0; $hour < 24; $hour++) {
+                            for ($minute = 0; $minute < 60; $minute += 30) {
+                                $time = sprintf('%02d:%02d', $hour, $minute);
+                                echo "<option value=\"$time\">$time</option>";
+                            }
                         }
-                    }
-                    ?>
-                </select>
+                        ?>
+                    </select>
+                </div>
 
-                <label for="cep">CEP:</label>
-                <input type="text" id="cep" name="cep" placeholder="Digite o CEP" onfocusout="getCep()" required>
+                <div class="input-dentro">
+                    <select>
+                        <?php
+                    
+                        ?>
+                    </select>
+                </div>
+                
+                <div class="input-dentro">
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" placeholder="Digite o CEP" onfocusout="getCep()" required>
+               
 
-                <label for="address">Logradouro:</label>
-                <input type="text" id="address" name="address" readonly>
+                
+                    <label for="address">Logradouro:</label>
+                    <input type="text" id="address" name="address" readonly>
+               
+                
+                    <label for="number">Numero:</label>
+                    <input type="text" id="number" name="number">
+                
 
-                <label for="number">Numero:</label>
-                <input type="text" id="number" name="number">
+               
+                    <label for="adjunct">Complemento:</label>
+                    <input type="text" id="adjunct" name="adjunct">
+             
 
-                <label for="adjunct">Complemento:</label>
-                <input type="text" id="adjunct" name="adjunct">
+                
+                    <label for="neighborhood">Bairro:</label>
+                    <input type="text" id="neighborhood" name="neighborhood" readonly>
+              
 
-                <label for="neighborhood">Bairro:</label>
-                <input type="text" id="neighborhood" name="neighborhood" readonly>
-
+                
                 <label for="city">Cidade:</label>
                 <input type="text" id="city" name="city" readonly>
 
-                <label for="uf">Estado:</label>
-                <input type="text" id="uf" name="uf" readonly>
-
-                <button type="button" onclick="submitCollectionCreation()">criar</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="ModalCollectionDetails" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <?php if ($wasteCollectionOnGoing) : ?>
-
-                <form>
-                    <?php if (!empty($wasteCollectionOnGoing->waste_collector)) : ?>
-                        <label for="collector">Coletor id:</label>
-                        <input value="<?= $wasteCollectionOnGoing->waste_collector ?>" readonly>
-                    <?php else : ?>
-                        <label for="collector">Coletor id:</label>
-                        <input value="Nenhum coletor ainda selecionou essa coleta" readonly>
-                    <?php endif ?>
-
-                    <?php if (!empty($wasteCollectionOnGoing->code)) : ?>
-                        <label for="code">Forneça esse codigo ao coletor:</label>
-                        <input value="<?= $wasteCollectionOnGoing->code ?>" readonly>
-                    <?php endif ?>
-
-                    <label for="description">Descição:</label>
-                    <textarea rows="4" cols="50" readonly>
-                    <?= $wasteCollectionOnGoing->description ?>
-                </textarea>
-
-                    <label for="weight">Peso (Kg):</label>
-                    <input type="number" step="0.1" min="p" value="<?= $wasteCollectionOnGoing->weight ?>" readonly>
-
-                    <label for="datePicker">Data e horario da coleta:</label>
-                    <input id="datePicker" name="datePicker" value="<?= date_format(DateTime::createFromFormat('Y-m-d H:i:s', $wasteCollectionOnGoing->collection_time), 'm-d-Y H:i') ?>" readonly>
-
-                    <?php
-
-                    $sql = R::getAll("SELECT a.id
-                                        FROM waste_collection wc
-                                        JOIN address_collection ac ON wc.id = ac.collection_id
-                                        JOIN address a ON ac.address_id = a.id
-                                        WHERE wc.id = :wc_id", [":wc_id" => $wasteCollectionOnGoing->id]);
-
-                    $address = R::load("address", $sql[0]["id"]);
-
-                    ?>
-                    <label for="cep">CEP:</label>
-                    <input value="<?= $address->cep ?>" readonly>
-
-                    <label for="address">Logradouro:</label>
-                    <input type="text" value="<?= $address->address ?>" readonly>
-
-                    <label for="number">Numero:</label>
-                    <input type="text" value="<?= $address->number ?>" readonly>
-                    <?php if (!empty($address->adjunct)) : ?>
-                        <label for="adjunct">Complemento:</label>
-                        <input type="text" value="<?= $address->adjunct ?>" readonly>
-                    <?php endif ?>
-
-                    <label for="neighborhood">Bairro:</label>
-                    <input type="text" value="<?= $address->cep ?>" readonly>
-
-                    <label for="city">Cidade:</label>
-                    <input type="text" value="<?= $address->city ?>" readonly>
-
+               
                     <label for="uf">Estado:</label>
-                    <input type="text" value="<?= $address->uf ?>" readonly>
+                    <input type="text" id="uf" name="uf" readonly>
+                </div>
 
-                    <button type="button" onclick="opencancelModal()">Cancelar solicitação</button>
-                </form>
-            <?php endif ?>
-        </div>
-    </div>
-
-    <div id="ModalCancel" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form id="wasteCollectionCancelation">
-                <label for="denny_reason">Razão do cancelamento:</label>
-                <input name="denny_reason">
-                <?php if ($wasteCollectionOnGoing) : ?>
-                    <button type="button" onclick="cancelCollectionCreation(<?= $wasteCollectionOnGoing->id  ?>)">Cancelar solicitação</button>
-                <?php endif ?>
+               
+                <div class="botao-criar">
+                    <button type="button" onclick="submitCollectionCreation()" class="criar">Criar Pedido</button>
+                </div>
             </form>
         </div>
     </div>
 
-</body>
+    <div class="acompanhar-coleta"></div>
 
-<script>
-    function showCollectionCreationModal() {
+    <script>
+        function showCollectionCreationModal() {
         url = `/verifyuser`
 
         fetch(url)
@@ -303,7 +330,7 @@
             })
             .then(function(data) {
 
-                if ('reason' in data) {
+/*                   if ('reason' in data) {
                     var modal = document.getElementById("ModalError")
                     var errorParagraph = document.getElementById("error-message")
 
@@ -315,7 +342,10 @@
                 if ("message" in data) {
                     var modal = document.getElementById("ModalFormCollection")
                     modal.style.display = "block"
-                }
+                }*/
+            var modal = document.getElementById("ModalFormCollection")
+                    modal.style.display = "block"
+
             }).catch((error) => {
                 console.log(error)
             });
@@ -403,26 +433,18 @@
                 }
             })
             .then(data => {
-                location.reload()
+                window.location.href="/wastecollectioncurrent"
             })
             .catch(error => {
                 console.error('Fetch Error:', error)
             });
 
+        
+
     }
 
-    function opencancelModal() {
-        var modal = document.getElementById("ModalCancel")
-        modal.style.display = "block"
-    }
-    
-    function openDetailsModel() {
-        var modal = document.getElementById("ModalCollectionDetails")
-        modal.style.display = "block"
-    }
-
-    // Get the modal elements
-    const modalError = document.getElementById('ModalError');
+     // Get the modal elements
+     const modalError = document.getElementById('ModalError');
     const modalFormCollection = document.getElementById('ModalFormCollection');
     const modalCollectionDetails = document.getElementById('ModalCollectionDetails');
     const modalCancel = document.getElementById('ModalCancel');
@@ -463,6 +485,6 @@
     }
     }
 
-</script>
-
+    </script>
+</body>
 </html>

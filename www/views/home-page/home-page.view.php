@@ -71,10 +71,20 @@
         border-radius: 25px;
     }
 
-    header .navbar ul li a:hover {
-        color: white;
-        background-color: var(--cor-6);
+    .a-header::after {
+    content: '';
+    height: 2.5px;
+    width: 0px;
+    position: absolute;
+    top: 3em;
+    left: 10;
+    transition: 0.4s ease;
+    z-index:1001;
+    background-color:var(--cor-5);
+}
 
+    .a-header:hover::after {
+        width: 4em;
     }
 
     header .navbar ul li ul {
@@ -145,7 +155,8 @@
     .login-header button:hover {
         cursor: pointer;
         color: white;
-        background-color: var(--cor-2);
+        background-color: #8ecae6;
+        transition:ease 0.5s;
     }
 
     /* ===================== Fim do header ===================== */
@@ -539,20 +550,6 @@
         }
     }
 
-    .login-header button {
-        margin-top: 0.6em;
-        padding: 0.9em;
-        border: none;
-        font-size: 20px;
-        background-color: white;
-        border-radius: 10px;
-        width: 10em;
-    }
-
-    .login-header button:hover {
-        cursor: pointer;
-        background-color: #f2f2f2;
-    }
 
     .dropdown-menu ul li {
         list-style: none;

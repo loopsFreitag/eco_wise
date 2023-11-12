@@ -56,17 +56,23 @@ some/6.2.0/css/all.min.css">
         -webkit-text-fill-color: transparent;
     }
 
+    .titulo-principal{
+        animation:fade-up 1s;
+    }
+
     .definicao h1 {
         text-align: center;
         padding-top: 4rem;
         font-size: 50px;
         color: var(--cor-1);
         border-bottom: 1px solid silver;
+        animation:fade-up 1s;
     }
 
     .texto-definicao {
         display: flex;
         margin: 0 100px;
+        animation:fade-up 1s;
     }
 
     .texto-definicao p {
@@ -86,6 +92,7 @@ some/6.2.0/css/all.min.css">
     .conteudo {
         margin: 0 7.2em;
         padding-bottom: 5em;
+        animation:fade-up 1s;
     }
 
     .conteudo h4 {
@@ -112,6 +119,19 @@ some/6.2.0/css/all.min.css">
         object-fit: contain;
         box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     }
+
+    @keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.9);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(0px) scale(1) ;
+    }
+}
+
 </style>
 
 <body>

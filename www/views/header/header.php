@@ -1,4 +1,23 @@
 <style>
+        * {
+        font-family: 'Lato', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+    }
+
+    :root {
+        --cor-1: #508b5b;
+        --cor-2: #4da2e3; 
+        --cor-3: #40bf80;
+        --cor-4: #218c75;
+        --cor-5: #207e20;
+        --cor-6: #3e9037;
+        --cor-7: #2c52ed;
+        --cor-8: #8ec2c7;
+    }
+
     header {
         position: sticky;
         top: 0;
@@ -38,11 +57,34 @@
         border-radius: 25px;
     }
 
-    header .navbar ul li a:hover {
-        color: white;
-        background-color: var(--cor-6);
+    .a-header::after {
+    content: '';
+    height: 2.5px;
+    width: 0px;
+    background-color: black;
+    position: absolute;
+    top: 3em;
+    left: 1.5em;
+    transition: 0.4s ease;
+    z-index:1001 ;
+}
 
+.a-header2::after {
+    content: '';
+    height: 2.5px;
+    width: 0px;
+    background-color: black;
+    position: absolute;
+    top: 4em;
+    left: 1.5em;
+    transition: 0.4s ease;
+    z-index:1001 ;
+}
+
+    .a-header:hover::after,.a-header2:hover::after {
+        width: 4em;
     }
+
 
     header .navbar ul li ul {
         position: absolute;
@@ -108,7 +150,7 @@
 
     .login-header button:hover {
         cursor: pointer;
-        background-color: #f2f2f2;
+        background-color:#8ecae6;
     }
 
     .dropdown-menu ul li {
@@ -182,7 +224,8 @@
         color: var(--cor-7);
     }
 
-    <?php else : ?>.login-header {
+    <?php else : ?>
+        .login-header {
         display: flex;
         font-size: 20px;
     }
@@ -198,7 +241,8 @@
     .login-header button:hover {
         cursor: pointer;
         color: white;
-        background-color: var(--cor-2);
+        background-color: #8ecae6;
+        transition:ease 0.3s;
     }
 
     <?php endif ?>
@@ -297,6 +341,10 @@
             font-size: 10px;
         }
     }
+
+    #user-menu-button p{
+        text-transform:capitalize;
+    }
 </style>
 
 <header>
@@ -308,7 +356,7 @@
     <nav class="navbar">
         <ul class="nav-links">
             <li class="nav-link services">
-                <a href="#">
+                <a href="#" class="a-header">
                     Conteúdos Educativos
                     <span class="material-icons dropdown-icon">
                         arrow_drop_down
@@ -316,32 +364,47 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="/recycling">Reciclagem</a>
+                        <a href="/recycling" class="a-header">Reciclagem</a>
                     </li>
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="#" class="a-header2">
                             Ações antrópicas
                             <span class="material-icons dropdown-icon"> arrow_left </span>
                         </a>
                         <ul>
-                            <li><a href="/wildfire">Queimadas</a></li>
-                            <li><a href="/acidrain">Chuva ácida</a></li>
-                            <li><a href="/deforestation">Desmatamento</a></li>
-                            <li><a href="/pollution">Poluição</a></li>
+                            <li><a href="/wildfire" class="a-header">Queimadas</a></li>
+                            <li><a href="/acidrain" class="a-header">Chuva ácida</a></li>
+                            <li><a href="/deforestation" class="a-header">Desmatamento</a></li>
+                            <li><a href="/pollution" class="a-header">Poluição</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
-            <li class="nav-link"><a href="/login">Coleta de Resíduos</a></li>
+            <?php if ($user->id):?>
+                <?php if ($user->type == 2):?>
+                    <?php
+                        $collectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id, 1, 2]);
+                        if($collectionOnGoing->id) :
+                    ?>
+                    <li class="nav-link"><a href="/wastecollectioncurrent" class="a-header" >Coleta de Resíduos</a></li>
+                    <?php else: ?>
+                    <li class="nav-link"><a href="/wastecollectioncreation" class="a-header">Coleta de Resíduos</a></li>
+                    <?php endif ?>
+                <?php elseif($user->type == 1):?>
+                    <li class="nav-link"><a href="/wastecollection" class="a-header" >Coleta de Resíduos</a></li>
+                <?php endif ?>
+            <?php else: ?>
+                <li class="nav-link"><a href="/login" class="a-header">Coleta de Resíduos</a></li>
+            <?php endif?>
             <li class="nav-link services">
-                <a href="#">
+                <a href="#" class="a-header">
                     Informações
                     <span class="material-icons dropdown-icon">
                         arrow_drop_down
                     </span>
                 </a>
                 <ul>
-                    <li><a href="/collectioninfo">Coleta</a></li>
+                    <li><a href="/collectioninfo" class="a-header">Coleta</a></li>
 
                 </ul>
             </li>
@@ -352,15 +415,20 @@
         <div class="login-header">
             <div class="user-botao" onclick="Menuclicado();">
                 <button id="user-menu-button">
-                    <p>Olá, <?= $user->person->name ?> </p>
+                    <p><?= $user->person->name ?> </p>
                 </button>
             </div>
 
             <div class="dropdown-menu">
                 <ul>
-                    <li><i class="fa-regular fa-user"></i><a href="/pages/meuperfil.html
+                    <li><i class="fa-regular fa-user"></i><a href="/myprofile
                     ">Meu Perfil</a></li>
+                    <?php if($user->type == 1):?>
+                        <li><i class="fa-solid fa-table-columns"></i><a href="/dashboard">Controlar</a></li>
+                    <?php endif?>
                     <li><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Sair</a></li>
+
+                    
                 </ul>
             </div>
         </div>

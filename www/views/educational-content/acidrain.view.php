@@ -110,6 +110,7 @@ main .wave.wave2{
 .imagem-titulo{
     display: flex;
     text-transform: uppercase;
+    animation:fade-up 1s;
 }
 
 .titulo-principal1{
@@ -123,7 +124,9 @@ main .wave.wave2{
     color: #02c39a;
 }
 
-
+.definicao{
+    animation:fade-up 1s;
+}
 .definicao h1 {
     text-align: center;
     padding-top: 4rem;
@@ -154,6 +157,7 @@ strong{
 .conteudo {
     margin: 0 7.2em;
     padding-bottom: 5em;
+    animation:fade-up 1s;
 }
 
 
@@ -286,6 +290,30 @@ strong{
       }
 
 }
+
+@keyframes fade-up {
+        0% {
+            opacity: 0;
+            transform: translateY(100px) scale(0.9);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+        }
+    }
+
+    @keyframes lateral {
+        0% {
+            opacity: 0;
+            transform: translateX(400px) scale(0.9);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(0px) scale(1);
+        }
+    }
 </style>
 <body>
 <?php include_once(__DIR__ . "/../header/header.php") ?>
