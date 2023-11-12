@@ -55,4 +55,5 @@ $protected = [
     "/wastecollectioncurrent" => true,
     "/collectionHistory" => true,
     "/dashboard" => true,
+    "/verifycode" => true,
 ];
