@@ -50,7 +50,7 @@ main .wave {
     left: 0;
     width: 100%;
     height: 100px;
-    background: url(/img/wave.png);
+    background: url('http://front-end-noobs.com/jecko/img/wave-bot.png');
     background-size: 1000px 100px;
 }
 

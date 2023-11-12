@@ -132,7 +132,7 @@
     <div class="container">
         <div class="linha">
             <div class="coluna" id="company">
-                <img src="" alt="" class="logo">
+
                 <p>
                     Na Ecowise, nossa dedicação se concentra em moldar um amanhã mais sustentável e consciente. Buscamos incutir a ecoconsciência em todas as nossas iniciativas. Convidamos você a se unir a nós nessa trajetória em direção a um mundo mais ecológico e saudável.
                 </p>
@@ -147,10 +147,8 @@
             <div class="coluna" id="services">
                 <h3>Serviços</h3>
                 <div class="links">
-                    <a href="#">Catadores</a>
+                    <a href="#">Coleta</a>
                     <a href="#">Conteúdos</a>
-                    <a href="#">Horário de coleta</a>
-                    <a href="#">Rede Social</a>
                 </div>
             </div>
 
