@@ -235,6 +235,7 @@ textarea {
         modal.style.display = "block"
     }
     
+
     function openDetailsModel() {
         var modal = document.getElementById("ModalCollectionDetails")
         modal.style.display = "block"
@@ -283,4 +284,380 @@ textarea {
     }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suas coletas</title>
+</head>
+
+<style>
+    * {
+        box-sizing: border-box;
+        list-style-type: none;
+    }
+
+
+    .container {
+        display: flex;
+        max-width: 100%;
+        justify-content: space-evenly;
+    }
+
+    .section {
+        border: 2px solid black;
+        max-width: 25%;
+
+    }
+
+    .tamanho li {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .container-2 {
+        display: flex;
+        justify-content: center;
+        padding-top: 2em;
+    }
+
+    .section-2 {
+        width: 100%;
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <h1>Suas coletas</h1>
+    <?php if (isset($user)) : ?>
+        <p>Bem-vindo
+            <?= htmlspecialchars($user->person->name) ?>
+        </p>
+    <?php endif; ?>
+
+    <div class="container">
+
+            <div style="display:flex; flex-direction: column;" class="section">
+                <h3>Coleta em andamento:</h3>
+                
+                <form>
+                    <?php if($user->type == 1) :?>
+                        <?php if (!empty($collection->waste_collector)) : ?>
+                            <label for="collector">Nome do coletor:</label>
+                            <?php 
+                            $colletor = R::load("user", $collection->waste_collector);
+                            ?>
+                            <input value="<?= $colletor->person->name ?>" readonly>
+                        <?php else : ?>
+                            <h1>Nenhum coletor aceitou essa solicitação ainda</h1>
+                        <?php endif ?>
+
+
+                        <?php if (!empty($collection->code)) : ?>
+                                <label for="code">Forneça esse codigo ao coletor:</label>
+                                <input value="<?= $collection->code ?>" readonly>
+                        <?php endif ?>
+                    <?php endif ?>
+
+
+                    <label for="description">Descição:</label>
+                    <textarea rows="4" cols="50" readonly>
+                    <?= $collection->description ?>
+                </textarea>
+
+                    <label for="weight">Peso (Kg):</label>
+                    <input type="number" step="0.1" min="p" value="<?= $collection->weight ?>" readonly>
+
+                    <label for="datePicker">Data e horario da coleta:</label>
+                    <input id="datePicker" name="datePicker" value="<?= date_format(DateTime::createFromFormat('Y-m-d H:i:s', $collection->collection_time), 'm-d-Y H:i') ?>" readonly>
+
+                    <?php
+
+                    $sql = R::getAll("SELECT a.id
+                                        FROM waste_collection wc
+                                        JOIN address_collection ac ON wc.id = ac.collection_id
+                                        JOIN address a ON ac.address_id = a.id
+                                        WHERE wc.id = :wc_id", [":wc_id" => $collection->id]);
+
+                    $address = R::load("address", $sql[0]["id"]);
+
+                    ?>
+                    <label for="cep">CEP:</label>
+                    <input value="<?= $address->cep ?>" readonly>
+
+                    <label for="address">Logradouro:</label>
+                    <input type="text" value="<?= $address->address ?>" readonly>
+
+                    <label for="number">Numero:</label>
+                    <input type="text" value="<?= $address->number ?>" readonly>
+                    <?php if (!empty($address->adjunct)) : ?>
+                        <label for="adjunct">Complemento:</label>
+                        <input type="text" value="<?= $address->adjunct ?>" readonly>
+                    <?php endif ?>
+
+                    <label for="neighborhood">Bairro:</label>
+                    <input type="text" value="<?= $address->cep ?>" readonly>
+
+                    <label for="city">Cidade:</label>
+                    <input type="text" value="<?= $address->city ?>" readonly>
+
+                    <label for="uf">Estado:</label>
+                    <input type="text" value="<?= $address->uf ?>" readonly>
+
+                    <?php if (empty($collection->waste_collector)) :?>
+                        <button type="button" onclick="acceptCollection(<?= $collection->id  ?>)">Aceitar solicitação</button>
+                    <?php else: ?>
+                        <button type="button" onclick="opencancelModal()">Cancelar solicitação</button>
+                        <button type="button" onclick="openCollectionConfirmation()">Entregar coleta</button>
+                    <?php endif ?>    
+                </form>
+            </div>
+
+    <div id="ModalCancel" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="wasteCollectionCancelation">
+                <label for="denny_reason">Razão do cancelamento:</label>
+                <input name="denny_reason">
+                <?php if ($collection) : ?>
+                    <button type="button" onclick="cancelCollectionCreation(<?= $collection->id  ?>)">Cancelar solicitação</button>
+                <?php endif ?>
+            </form>
+        </div>
+    </div>
+
+    <div id="ModalConfirmation" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="wasteCollectionCode">
+                <label for="code">insira o codigo fornecido:</label>
+                <input name="code">
+                <?php if ($collection) : ?>
+                    <button type="button" onclick="collectWaste(<?= $collection->id  ?>)">Encerrar coleta</button>
+                <?php endif ?>
+            </form>
+        </div>
+    </div>
+
+    <div id="ModalError" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    function acceptCollection(collection_id) {
+        url = `/verifyuser`
+
+        fetch(url)
+            .then(function(response) {
+                if (response.status === 200 || response.status === 428) {
+                    return response.json()
+                }
+                throw new Error('Request failed with status: ' + response.status)
+            })
+            .then(function(data) {
+                if ('reason' in data) {
+                    var modal = document.getElementById("ModalError")
+                    var errorParagraph = document.getElementById("error-message")
+
+                    errorParagraph.innerHTML = data.reason
+                    modal.style.display = "block"
+                    return
+                }
+
+                if ("message" in data) {
+                    acceptRequestCollection(collection_id)
+                }
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    function cancelCollectionCreation(collection_id) {
+        var form = document.getElementById("wasteCollectionCancelation")
+        url = `/cancelcollection/${collection_id}`
+
+        var formData = new FormData(form)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(function(response) {
+                if (response.status === 200) {
+                    return response.json()
+                }
+                throw new Error('Request failed with status: ' + response.status)
+            })
+            .then(function(data) {
+                location.reload()
+            }).catch((error) => {
+                console.log(error)
+            });
+
+    }
+
+    function acceptRequestCollection(collection_id) {
+        url = `/acceptcollection/${collection_id}`
+
+        fetch(url)
+            .then(function(response) {
+                if (response.status === 200) {
+                    window.location.href = "/wastecollection"
+                }
+            }).catch((error) => {
+                console.log(error)
+            });
+
+    }
+
+    function collectWaste(collection_id) {
+        var form = document.getElementById("wasteCollectionCode")
+        url = `/verifycode/${collection_id}`
+
+        var formData = new FormData(form)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(function(response) {
+                return response.json()
+            })
+            .then(function(data) {
+                if ('reason' in data) {
+                    var modal = document.getElementById("ModalError")
+                    var errorParagraph = document.getElementById("error-message")
+
+                    errorParagraph.innerHTML = data.reason
+                    modal.style.display = "block"
+                    return
+                }
+
+                if ("message" in data) {
+                    acceptRequestCollection(collection_id)
+                    window.location.href = "/wastecollection";
+                }
+            }).catch((error) => {});
+    }
+
+
+    function opencancelModal() {
+        var modal = document.getElementById("ModalCancel")
+        modal.style.display = "block"
+    }
+    
+    function openDetailsModel() {
+        var modal = document.getElementById("ModalCollectionDetails")
+        modal.style.display = "block"
+    }
+
+    function openCollectionConfirmation() {
+        var modal = document.getElementById("ModalConfirmation")
+        modal.style.display = "block"
+        
+
+
+    }
+
+    // Get the modal elements
+    const modalError = document.getElementById('ModalError');
+    const modalFormCollection = document.getElementById('ModalFormCollection');
+    const modalCollectionDetails = document.getElementById('ModalCollectionDetails');
+    const modalCancel = document.getElementById('ModalCancel');
+
+    // Get the span elements that close the modals
+    const spanError = document.getElementsByClassName("close")[0];
+    const spanFormCollection = document.getElementsByClassName("close")[1];
+    const spanCollectionDetails = document.getElementsByClassName("close")[2];
+
+    // When the user clicks on the span, close the modal
+    spanError.onclick = function() {
+    modalError.style.display = "none";
+    }
+
+    spanFormCollection.onclick = function() {
+    modalFormCollection.style.display = "none";
+    }
+
+    spanCollectionDetails.onclick = function() {
+    modalCollectionDetails.style.display = "none";
+    }
+
+    // When the user clicks outside the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modalError) {
+        modalError.style.display = "none";
+    } else if (event.target == modalFormCollection) {
+        modalFormCollection.style.display = "none";
+    } else if (event.target == modalCollectionDetails) {
+        modalCollectionDetails.style.display = "none";
+    } else if (event.target == modalCancel) {
+        modalCancel.style.display = "none";
+    }
+    }
+
+</script>
+
 </html>

@@ -26,6 +26,7 @@ $routes = [
     "/wastecollectioncurrent" => "BO/WasteCollectionController@currentCollection",
     "/collectionHistory" => "BO/WasteCollectionController@collectionHistory",
     "/dashboard" => "BO/AdminController@index",
+    "/verifycode/{collection_id}" => "BO/WasteCollectionController@verifycode",
 ];
 
 $protected = [
@@ -37,7 +38,7 @@ $protected = [
     "/logout" => true,
     "/addfriend" => true,
     "/acceptfriend" => true,
-    "/wastecollection" =>true,
+    "/wastecollection" => true,
     "/wastecollectioncreation" => true,
     "/verifyuser" => true,
     "/createwastecollection" => true,
