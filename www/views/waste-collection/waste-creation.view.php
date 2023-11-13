@@ -274,10 +274,13 @@
                 </div>
 
                 <div class="input-dentro">
+                    <label>Selecione ou adicione um novo endereço:</label>
                     <select>
-                        <?php
+                        <?php $addresses = R::find('address', 'user_id = ? and status = ?', [$user->id, 1]); ?>
 
-                        ?>
+                        <?php foreach ($addresses as $address): ?>
+                        <option value="<?= $address->id ?>"><?= $address->address ?>, <?= $address->neighborhood ?>, <?= $address->number ?>, <?= $address->adjunct ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
 

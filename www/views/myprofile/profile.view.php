@@ -264,7 +264,7 @@
 
             <div class="endereco">
                 <div class="endereco-container">
-                    <form action="" id="">
+                    <form action="" id="address">
                         <div class="endereco-interno">
                             <p>cep</p>
                             <input type="text" name="cep">
@@ -278,7 +278,7 @@
                             <input type="text" name="adjunct">
                         </div>
                         <div class="botao">
-                            <button type="button" class="button-endereco">Salvar</button>
+                            <button type="button" onclick="addAddress()" class="button-endereco">Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -302,6 +302,37 @@
         url = `/updateuser`
 
         var form = document.getElementById("profile-info")
+
+        var formData = new FormData(form)
+
+        fetch(url, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(function(response) {
+                return response.json()
+            })
+            .then(function(data) {
+                if ('reason' in data) {
+                    var modal = document.getElementById("ModalError")
+                    var errorParagraph = document.getElementById("error-message")
+
+                    errorParagraph.innerHTML = data.reason
+                    modal.style.display = "block"
+                    return
+                }
+
+                if ("message" in data) {
+                    location.reload()
+                }
+            }).catch((error) => {});
+
+    }
+
+    function addAddress() {
+        url = `/addaddress`
+
+        var form = document.getElementById("address")
 
         var formData = new FormData(form)
 
