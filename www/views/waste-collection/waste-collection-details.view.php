@@ -210,17 +210,19 @@ textarea {
 
                     <label for="uf">Estado:</label>
                     <input type="text" value="<?= $address->uf ?>" readonly>
-                    
-                    <div class="button">
-                        <?php if($user->type == 2) : ?>
-                            <?php if (empty($collection->waste_collector)) :?>
-                                <button type="button" onclick="acceptCollection(<?= $collection->id  ?>)">Aceitar solicitação</button>
-                            <?php else: ?>
-                                <button type="button" onclick="opencancelModal()">Cancelar solicitação</button>
-                                <button type="button" onclick="openCollectionConfirmation()">Entregar coleta</button>
+
+                    <?php if ($collection->status != 4) : ?>
+                        <div class="button">
+                            <?php if($user->type == 2) : ?>
+                                <?php if (empty($collection->waste_collector)) :?>
+                                    <button type="button" onclick="acceptCollection(<?= $collection->id  ?>)">Aceitar solicitação</button>
+                                <?php else: ?>
+                                    <button type="button" onclick="opencancelModal()">Cancelar solicitação</button>
+                                    <button type="button" onclick="openCollectionConfirmation()">Entregar coleta</button>
+                                <?php endif ?>
                             <?php endif ?>
-                        <?php endif ?>
-                    </div>
+                        </div>
+                    <?php endif ?>
                 </form>
             <?php endif ?>
         </div>

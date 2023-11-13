@@ -203,10 +203,17 @@ class WasteCollectionController extends Controller {
         ]);
     }  
     
+    /*
+    * /collectionHistory
+    */
     public function collectionHistory(){
-        $user = $this->getUserAuth(); 
+        $user = $this->getUserAuth();
 
-        $collectionHistory = R::find('waste_collection', 'user_id = ? and status not in (?, ?)', [$user->id,1, 2]);
+        if ($user->type  == 2) {
+            $collectionHistory = R::find('waste_collection', 'waste_collector = ? and status = ?', [$user->id, 4]);
+        }else {
+            $collectionHistory = R::find('waste_collection', 'user_id = ? and status not in (?, ?)', [$user->id, 1, 2]);
+        }
 
         $this->LoadView('waste-collection/waste-history', [
             'user'=> $user,
