@@ -1,137 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <title>Document</title>
 </head>
 <style>
     * {
-    font-family: 'Lato', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-}
+        font-family: 'Lato', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+    }
 
-:root {
-    --cor-1: #508b5b;
-    --cor-2: #4da2e3; 
-    --cor-3: #40bf80;
-    --cor-4: #218c75;
-    --cor-5: #207e20;
-    --cor-6: #3e9037;
-    --cor-7: #2c52ed;
-    --cor-8: #8ec2c7;
-}
-.container{
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+    :root {
+        --cor-1: #508b5b;
+        --cor-2: #4da2e3;
+        --cor-3: #40bf80;
+        --cor-4: #218c75;
+        --cor-5: #207e20;
+        --cor-6: #3e9037;
+        --cor-7: #2c52ed;
+        --cor-8: #8ec2c7;
+    }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
+    .container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-/* Estilos do conteúdo do modal */
-.modal-content {
-    background-color: #fefefe;
-    margin-top:1em;
-    border: 1px solid #888;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items:center;
-    max-width:35em;
-    padding:2em;
-}
+    .modal {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 
-/* Estilos para o botão de fechar */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+    /* Estilos do conteúdo do modal */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        /* Adjust the percentage as needed */
+        border: 1px solid #888;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        max-width: 35em;
+        padding: 2em;
+    }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+    /* Estilos para o botão de fechar */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-/* Estilos dos inputs */
-.input-dentro {
-    flex: 0 0 30%; /* Define a largura dos inputs para 30% do espaço disponível */
-    margin-bottom: 15px;
-}
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-input[type="text"],
-input[type="number"],
-select,
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0 15px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+    /* Estilos dos inputs */
+    .input-dentro {
+        flex: 0 0 30%;
+        /* Define a largura dos inputs para 30% do espaço disponível */
+        margin-bottom: 15px;
+    }
 
-#datePicker {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0 15px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 
-.coletar{
-    outline:none;
-    border:none;
-    border-bottom:1px solid black;
-}
+    #datePicker {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
 
-.button button{
-    border:none;
-    padding:1em;
-    margin-top:0.5em;
-    background-color:#eb8383;
-    color:white;
-    border-radius:10px;
-}
+    .coletar {
+        outline: none;
+        border: none;
+        border-bottom: 1px solid black;
+    }
 
-.button button:hover{
-    background-color:red;
-    cursor:pointer;
-}
+    .button button {
+        border: none;
+        padding: 1em;
+        margin-top: 0.5em;
+        background-color: #eb8383;
+        color: white;
+        border-radius: 10px;
+    }
+
+    .button button:hover {
+        background-color: red;
+        cursor: pointer;
+    }
 </style>
+
 <body>
-<?php include_once(__DIR__ . "/../header/header-waste-collection.php")?>
+    <?php include_once(__DIR__ . "/../header/header-waste-collection.php") ?>
     <div class="container">
         <div class="modal-content">
             <?php if ($collection) : ?>
                 <form>
                     <?php if (!empty($collection->waste_collector)) : ?>
-                        <?php $collector = R::load("user",$collection->waste_collector)?>
+                        <?php $collector = R::load("user", $collection->waste_collector) ?>
                         <div class="input-dentro">
                             <label for="collector">Nome do Coletor:</label>
                             <input type="text" value="<?= $collector->person->name ?>" readonly>
@@ -149,19 +157,19 @@ textarea {
                             <input value="<?= $collection->code ?>" readonly>
                         </div>
                     <?php endif ?>
-                        <div class="input-dentro">
-                            <label for="description">Descrição:</label>
-                            <textarea rows="4" cols="50" readonly><?= $collection->description ?></textarea>
-                        </div>
+                    <div class="input-dentro">
+                        <label for="description">Descrição:</label>
+                        <textarea rows="4" cols="50" readonly><?= $collection->description ?></textarea>
+                    </div>
 
-                        <div class="input-dentro">
-                            <label for="weight">Peso (Kg):</label>
-                            <input type="number" step="0.1" min="p" value="<?= $collection->weight ?>" readonly>
-                        </div>
-                        <div class="input-dentro">
-                            <label for="datePicker">Data e horario da coleta:</label>
-                            <input id="datePicker" name="datePicker" value="<?= date_format(DateTime::createFromFormat('Y-m-d H:i:s', $collection->collection_time), 'm-d-Y H:i') ?>" readonly>
-                        </div>
+                    <div class="input-dentro">
+                        <label for="weight">Peso (Kg):</label>
+                        <input type="number" step="0.1" min="p" value="<?= $collection->weight ?>" readonly>
+                    </div>
+                    <div class="input-dentro">
+                        <label for="datePicker">Data e horario da coleta:</label>
+                        <input id="datePicker" name="datePicker" value="<?= date_format(DateTime::createFromFormat('Y-m-d H:i:s', $collection->collection_time), 'm-d-Y H:i') ?>" readonly>
+                    </div>
                     <?php
 
                     $sql = R::getAll("SELECT a.id
@@ -204,69 +212,59 @@ textarea {
     </div>
     <div id="ModalCancel" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span id="close" class="close">&times;</span>
             <form id="wasteCollectionCancelation">
                 <label for="denny_reason">Razão do cancelamento:</label>
                 <input name="denny_reason">
                 <?php if ($collection) : ?>
-                    <button type="button" onclick="cancelCollectionCreation(<?= $collection->id  ?>)">Cancelar solicitação</button>
+                    <button type="button" onclick="cancelCollectionCreation(<?= $collection->id ?>)">Cancelar solicitação</button>
                 <?php endif ?>
             </form>
         </div>
     </div>
 
     <script>
-           function opencancelModal() {
-        var modal = document.getElementById("ModalCancel")
-        modal.style.display = "block"
-    }
-    
-    function openDetailsModel() {
-        var modal = document.getElementById("ModalCollectionDetails")
-        modal.style.display = "block"
-    }
+        function opencancelModal() {
+            var modal = document.getElementById("ModalCancel")
+            modal.style.display = "block"
+        }
 
-    // Get the modal elements
-    const modalError = document.getElementById('ModalError');
-    const modalFormCollection = document.getElementById('ModalFormCollection');
-    const modalCollectionDetails = document.getElementById('ModalCollectionDetails');
-    const modalCancel = document.getElementById('ModalCancel');
+        const modalCancel = document.getElementById('ModalCancel');
+        const spanCancel = document.getElementById("close");
 
-    // Get the span elements that close the modals
-    const spanError = document.getElementsByClassName("close")[0];
-    const spanFormCollection = document.getElementsByClassName("close")[1];
-    const spanCollectionDetails = document.getElementsByClassName("close")[2];
-    const spanCancel = document.getElementsByClassName("close")[3];
+        spanCancel.onclick = function() {
+            modalCancel.style.display = "none";
+        }
 
-    // When the user clicks on the span, close the modal
-    spanError.onclick = function() {
-    modalError.style.display = "none";
-    }
+        // When the user clicks outside the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modalCancel) {
+                modalCancel.style.display = "none";
+            }
+        }
 
-    spanFormCollection.onclick = function() {
-    modalFormCollection.style.display = "none";
-    }
+        function cancelCollectionCreation(collection_id) {
+            var form = document.getElementById("wasteCollectionCancelation")
+            url = `/cancelcollection/${collection_id}`
 
-    spanCollectionDetails.onclick = function() {
-    modalCollectionDetails.style.display = "none";
-    }
+            var formData = new FormData(form)
 
-    spanCancel.onclick = function() {
-    modalCancel.style.display = "none";
-    }
-
-    // When the user clicks outside the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modalError) {
-        modalError.style.display = "none";
-    } else if (event.target == modalFormCollection) {
-        modalFormCollection.style.display = "none";
-    } else if (event.target == modalCollectionDetails) {
-        modalCollectionDetails.style.display = "none";
-    } else if (event.target == modalCancel) {
-        modalCancel.style.display = "none";
-    }
-    }
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+            })
+                .then(function(response) {
+                    if (response.status === 200) {
+                        return response.json()
+                    }
+                    throw new Error('Request failed with status: ' + response.status)
+                })
+                .then(function(data) {
+                    window.location.href = "/wastecollectioncreation";
+                }).catch((error) => {
+                });
+        }
     </script>
 </body>
+
 </html>

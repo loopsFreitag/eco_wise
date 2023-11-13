@@ -26,6 +26,11 @@ $routes = [
     "/wastecollectioncurrent" => "BO/WasteCollectionController@currentCollection",
     "/collectionHistory" => "BO/WasteCollectionController@collectionHistory",
     "/dashboard" => "BO/AdminController@index",
+    "/verifycode/{collection_id}" => "BO/WasteCollectionController@verifycode",
+    "/makadm/{user_id}" => "BO/AdminController@makeadm",
+    "/exclude/{user_id}" => "BO/AdminController@exclude",
+    "/activate/{user_id}" => "BO/AdminController@activate",
+    "/updateuser" => "BO/UserController@updateUser",
 ];
 
 $protected = [
@@ -37,7 +42,7 @@ $protected = [
     "/logout" => true,
     "/addfriend" => true,
     "/acceptfriend" => true,
-    "/wastecollection" =>true,
+    "/wastecollection" => true,
     "/wastecollectioncreation" => true,
     "/verifyuser" => true,
     "/createwastecollection" => true,
@@ -54,4 +59,8 @@ $protected = [
     "/wastecollectioncurrent" => true,
     "/collectionHistory" => true,
     "/dashboard" => true,
+    "/verifycode" => true,
+    "/makadm" => true,
+    "/exclude" => true,
+    "/activate"=> true,
 ];

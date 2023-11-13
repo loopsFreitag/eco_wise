@@ -18,9 +18,9 @@ class WasteCollectionController extends Controller {
 
         $user = $this->getUserAuth();
 
-        $openCollections = R::find("waste_collection", "status = 1");
+        $openCollections = R::find("waste_collection", "status = 1 and collection_time > CURRENT_TIMESTAMP");
 
-        $collectionScheduled = R::find("waste_collection", "status = ?", [1] );
+        $collectionScheduled = R::find("waste_collection", "status = ? and waste_collector = ?", [2, $user->id] );
 
         $this->LoadView('waste-collection/waste-collection', [
             'user' => $user,
@@ -112,7 +112,16 @@ class WasteCollectionController extends Controller {
     */
     public function cancelEvent ($request) {
         $colletion = R::load("waste_collection", $request["id"]);
+
         $colletion->status = 3;
+
+        $user = $this->getUserAuth();
+
+        if ($user->type == 2)  {
+            $colletion->status = 1;
+            $colletion->waste_collector = null;
+        }
+
         $colletion->denny_reason = $_POST["denny_reason"];
         R::store($colletion);
         $this->response("200", "canceled");
@@ -156,7 +165,8 @@ class WasteCollectionController extends Controller {
 
         if($user->haveCollectionOnTime($collection->collection_time)){
             $this->hanndleError(400, "is bussy on that time");
-        }
+        }        
+
 
         $collection->waste_collector = $user->id;
         $collection->status = 2;
@@ -193,14 +203,36 @@ class WasteCollectionController extends Controller {
         ]);
     }  
     
+    /*
+    * /collectionHistory
+    */
     public function collectionHistory(){
-        $user = $this->getUserAuth(); 
+        $user = $this->getUserAuth();
 
-        $collectionHistory = R::find('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id,1, 2]);
+        if ($user->type  == 2) {
+            $collectionHistory = R::find('waste_collection', 'waste_collector = ? and status = ?', [$user->id, 4]);
+        }else {
+            $collectionHistory = R::find('waste_collection', 'user_id = ? and status not in (?, ?)', [$user->id, 1, 2]);
+        }
 
         $this->LoadView('waste-collection/waste-history', [
             'user'=> $user,
             'history'=> $collectionHistory
         ]);
+    }
+
+    /*
+    * /verifycode/{collection_id}
+    */
+    public function verifycode($request) {
+        $collection = R::load("waste_collection", $request["collection_id"]);
+
+        if($_POST["code"] == $collection->code) {
+            $collection->status = 4;
+            R::store($collection);
+            $this->response("200", "canceled");
+        }
+
+        $this->hanndleError(422, "codigo invalido");
     }
 }

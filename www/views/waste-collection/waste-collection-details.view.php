@@ -40,6 +40,9 @@
 
 .modal {
     display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -47,20 +50,20 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Estilos do conteúdo do modal */
 .modal-content {
     background-color: #fefefe;
-    margin-top:1em;
+    margin: 5% auto; /* Adjust the percentage as needed */
     border: 1px solid #888;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items:center;
-    max-width:35em;
-    padding:2em;
+    align-items: center;
+    max-width: 35em;
+    padding: 2em;
 }
 
 /* Estilos para o botão de fechar */
@@ -207,12 +210,41 @@ textarea {
 
                     <label for="uf">Estado:</label>
                     <input type="text" value="<?= $address->uf ?>" readonly>
-                    
-                    <div class="button">
-                        <button type="button" onclick="opencancelModal()" class="cancel">Aceitar</button>
-                    </div>
+
+                    <?php if ($collection->status != 4) : ?>
+                        <div class="button">
+                            <?php if($user->type == 2) : ?>
+                                <?php if (empty($collection->waste_collector)) :?>
+                                    <button type="button" onclick="acceptCollection(<?= $collection->id  ?>)">Aceitar solicitação</button>
+                                <?php else: ?>
+                                    <button type="button" onclick="opencancelModal()">Cancelar solicitação</button>
+                                    <button type="button" onclick="openCollectionConfirmation()">Entregar coleta</button>
+                                <?php endif ?>
+                            <?php endif ?>
+                        </div>
+                    <?php endif ?>
                 </form>
             <?php endif ?>
+        </div>
+    </div>
+
+    <div id="ModalConfirmation" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="wasteCollectionCode">
+                <label for="code">insira o codigo fornecido:</label>
+                <input name="code">
+                <?php if ($collection) : ?>
+                    <button type="button" onclick="collectWaste(<?= $collection->id  ?>)">Encerrar coleta</button>
+                <?php endif ?>
+            </form>
+        </div>
+    </div>
+
+    <div id="ModalError" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="error-message"></p>
         </div>
     </div>
 
@@ -230,7 +262,101 @@ textarea {
     </div>
 
     <script>
-           function opencancelModal() {
+    function acceptCollection(collection_id) {
+        url = `/verifyuser`
+
+        fetch(url)
+            .then(function(response) {
+                if (response.status === 200 || response.status === 428) {
+                    return response.json()
+                }
+                throw new Error('Request failed with status: ' + response.status)
+            })
+            .then(function(data) {
+                if ('reason' in data) {
+                    var modal = document.getElementById("ModalError")
+                    var errorParagraph = document.getElementById("error-message")
+
+                    errorParagraph.innerHTML = data.reason
+                    modal.style.display = "block"
+                    return
+                }
+
+                if ("message" in data) {
+                    acceptRequestCollection(collection_id)
+                }
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    function cancelCollectionCreation(collection_id) {
+        var form = document.getElementById("wasteCollectionCancelation")
+        url = `/cancelcollection/${collection_id}`
+
+        var formData = new FormData(form)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(function(response) {
+                if (response.status === 200) {
+                    return response.json()
+                }
+                throw new Error('Request failed with status: ' + response.status)
+            })
+            .then(function(data) {
+                window.location.href = "/wastecollection";
+            }).catch((error) => {
+            });
+
+    }
+
+    function acceptRequestCollection(collection_id) {
+        url = `/acceptcollection/${collection_id}`
+
+        fetch(url)
+            .then(function(response) {
+                if (response.status === 200) {
+                    window.location.href = "/wastecollection"
+                }
+            }).catch((error) => {
+            });
+
+    }
+
+    function collectWaste(collection_id) {
+        var form = document.getElementById("wasteCollectionCode")
+        url = `/verifycode/${collection_id}`
+
+        var formData = new FormData(form)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(function(response) {
+                return response.json()
+            })
+            .then(function(data) {
+                if ('reason' in data) {
+                    var modal = document.getElementById("ModalError")
+                    var errorParagraph = document.getElementById("error-message")
+
+                    errorParagraph.innerHTML = data.reason
+                    modal.style.display = "block"
+                    return
+                }
+
+                if ("message" in data) {
+                    acceptRequestCollection(collection_id)
+                    window.location.href = "/wastecollection";
+                }
+            }).catch((error) => {});
+    }
+
+    function opencancelModal() {
         var modal = document.getElementById("ModalCancel")
         modal.style.display = "block"
     }
@@ -240,46 +366,41 @@ textarea {
         modal.style.display = "block"
     }
 
-    // Get the modal elements
-    const modalError = document.getElementById('ModalError');
-    const modalFormCollection = document.getElementById('ModalFormCollection');
-    const modalCollectionDetails = document.getElementById('ModalCollectionDetails');
-    const modalCancel = document.getElementById('ModalCancel');
-
-    // Get the span elements that close the modals
-    const spanError = document.getElementsByClassName("close")[0];
-    const spanFormCollection = document.getElementsByClassName("close")[1];
-    const spanCollectionDetails = document.getElementsByClassName("close")[2];
-    const spanCancel = document.getElementsByClassName("close")[3];
-
-    // When the user clicks on the span, close the modal
-    spanError.onclick = function() {
-    modalError.style.display = "none";
+    function openCollectionConfirmation() {
+        var modal = document.getElementById("ModalConfirmation")
+        modal.style.display = "block"
     }
 
-    spanFormCollection.onclick = function() {
-    modalFormCollection.style.display = "none";
+    // Get the modals
+    var modalConfirmation = document.getElementById('ModalConfirmation');
+    var modalError = document.getElementById('ModalError');
+    var modalCancel = document.getElementById('ModalCancel');
+
+    // Get the close buttons
+    var closeConfirmation = modalConfirmation.getElementsByClassName('close')[0];
+    var closeError = modalError.getElementsByClassName('close')[0];
+    var closeCancel = modalCancel.getElementsByClassName('close')[0];
+
+    window.onclick = function (event) {
+        if (event.target == modalConfirmation) {
+            modalConfirmation.style.display = 'none';
+        }
+        if (event.target == modalError) {
+            modalError.style.display = 'none';
+        }
+        if (event.target == modalCancel) {
+            modalCancel.style.display = 'none';
+        }
     }
 
-    spanCollectionDetails.onclick = function() {
-    modalCollectionDetails.style.display = "none";
+    closeConfirmation.onclick = function () {
+        modalConfirmation.style.display = 'none';
     }
-
-    spanCancel.onclick = function() {
-    modalCancel.style.display = "none";
+    closeError.onclick = function () {
+        modalError.style.display = 'none';
     }
-
-    // When the user clicks outside the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modalError) {
-        modalError.style.display = "none";
-    } else if (event.target == modalFormCollection) {
-        modalFormCollection.style.display = "none";
-    } else if (event.target == modalCollectionDetails) {
-        modalCollectionDetails.style.display = "none";
-    } else if (event.target == modalCancel) {
-        modalCancel.style.display = "none";
-    }
+    closeCancel.onclick = function () {
+        modalCancel.style.display = 'none';
     }
     </script>
 </body>

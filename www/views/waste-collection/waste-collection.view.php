@@ -104,7 +104,7 @@
                                         FROM waste_collection wc
                                         JOIN address_collection ac ON wc.id = ac.collection_id
                                         JOIN address a ON ac.address_id = a.id
-                                        WHERE wc.id = :wc_id", [":wc_id" => $collection->id]);
+                                        WHERE wc.id = :wc_id", [":wc_id" => $collections->id]);
 
                     $address = R::load("address", $sql[0]["id"]);
 
@@ -139,7 +139,7 @@
                                     FROM waste_collection wc
                                     JOIN address_collection ac ON wc.id = ac.collection_id
                                     JOIN address a ON ac.address_id = a.id
-                                    WHERE wc.id = :wc_id", [":wc_id" => $collection->id]);
+                                    WHERE wc.id = :wc_id", [":wc_id" => $collections->id]);
 
                 $address = R::load("address", $sql[0]["id"]);?>
                     <div class="coleta">

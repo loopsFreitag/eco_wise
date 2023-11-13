@@ -75,27 +75,32 @@
 
 <div class="container">
     <div class="intern">
-            <?php foreach ($history as $collection): ?>
-            <div class="card">
-                <div class="int-card1">
-                    <h1>Coleta de:</h1>
-                    <p><?= $collection->description?></p>
+            <?php if (!empty($history)) : ?>
+                <?php foreach ($history as $collection): ?>
+                <div class="card">
+                    <div class="int-card1">
+                        <h1>Coleta de:</h1>
+                        <p><?= $collection->description?></p>
+                    </div>
+                    <div class="data-horario">
+                        <h1 class="data">Data:</h1>
+                        <p class="data2"><?= date_format(DateTime::createFromFormat('Y-m-d H:i:s', $collection->collection_time), 'm-d-Y H:i') ?></p>
+                    </div>
+                        <?php if($collection->status == 3): ?>
+                            <p class="status">Cancelado</p>
+                        <?php else:?>
+                            <p class="status">Entregue</p>
+                        <?php endif?>   
+                
+                    <div class="button">
+                        <button type="button" onclick="window.location='/collection/<?=$collection->id?>'">Abrir coleta</button>
+                    </div>
                 </div>
-                <div class="data-horario">
-                    <h1 class="data">Data:</h1>
-                    <p class="data2"><?= date_format(DateTime::createFromFormat('Y-m-d H:i:s', $collection->collection_time), 'm-d-Y H:i') ?></p>
-                </div>
-                    <?php if($collection->status == 3): ?>
-                        <p class="status">Cancelado</p>
-                    <?php else:?>
-                        <p class="status">Entregue</p>
-                    <?php endif?>   
-               
-                <div class="button">
-                    <button type="button" onclick="window.location='/collection/<?=$collection->id?>'">Abrir coleta</button>
-                </div>
-            </div>
-            <?php endforeach?>
+                <?php endforeach?>
+            <?php else: ?>
+                <p>Nenhum historico disponivel</p>
+            <?php endif ?>
+
     </div>
 </div>
 
