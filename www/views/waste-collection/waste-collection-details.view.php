@@ -309,7 +309,6 @@ textarea {
             .then(function(data) {
                 window.location.href = "/wastecollection";
             }).catch((error) => {
-                console.log(error)
             });
 
     }
@@ -323,7 +322,6 @@ textarea {
                     window.location.href = "/wastecollection"
                 }
             }).catch((error) => {
-                console.log(error)
             });
 
     }
@@ -383,7 +381,6 @@ textarea {
     var closeError = modalError.getElementsByClassName('close')[0];
     var closeCancel = modalCancel.getElementsByClassName('close')[0];
 
-    // When the user clicks the close button or outside the modal, close the modal
     window.onclick = function (event) {
         if (event.target == modalConfirmation) {
             modalConfirmation.style.display = 'none';
@@ -396,7 +393,6 @@ textarea {
         }
     }
 
-    // When the user clicks on the close button, close the modal
     closeConfirmation.onclick = function () {
         modalConfirmation.style.display = 'none';
     }
