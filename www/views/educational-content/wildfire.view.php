@@ -132,6 +132,70 @@ some/6.2.0/css/all.min.css">
     }
 }
 
+@media (max-width:850px){
+    .titulo-principal{
+        font-size:70px;
+    }
+
+    .definicao h1 {
+        font-size:55px;
+    }
+}
+
+@media(max-width:700px){
+    .texto-definicao{
+        display:flex;
+        flex-direction:column;
+    }
+
+    .definicao h1 {
+        font-size:40px;
+    }
+
+    .texto-definicao p{
+        width:100%;
+    }
+
+    .imagem img{
+        width:80%;
+    }
+
+}
+
+@media(max-width:500px){
+    .titulo-principal{
+        font-size:45px;
+    }
+
+    .conteudo p {
+        font-size:14px;
+    }
+
+    .definicao h1 {
+        font-size:30px;
+    }
+
+
+    .texto-definicao p{
+        font-size:14px;
+    }
+
+    .texto-definicao {
+        margin: 0 ;
+    }
+
+    .texto-definicao {
+        margin: 0 ;
+    }
+    .conteudo {
+        margin: 1em;
+       
+    }
+
+}
+
+
+
 </style>
 
 <body>

@@ -77,7 +77,42 @@ main p {
     text-align: justify;
 }
 
+@media (max-width:1000px){
+    
+main{
+    padding: 0;
+}
 
+.informacao,.como-coletar{
+    padding:1em;
+}
+}
+
+@media (max-width:850px){
+    .informacao h1,.como-coletar h1 {
+        font-size:24px;
+    }
+
+    .informacao p,.informacao ul li{
+        font-size:16px;
+    }
+
+    .como-coletar p,.como-coletar ol li{
+        font-size:16px;
+    }
+}
+
+@media (max-width:750px){
+    main{
+        margin:2em;
+    }
+}
+
+@media(max-width:400px){
+    main{
+        margin:0;
+    }
+}
 
 </style>
 <body>

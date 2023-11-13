@@ -635,8 +635,6 @@
                 Com o nosso compromisso, vislumbramos um futuro em que os recursos naturais são preservados, a biodiversidade é valorizada e as gerações futuras herdam um mundo mais equilibrado e próspero. Junte-se a nós nessa jornada em direção a um amanhã mais ecológico e melhor.</br></br>
 
                 Explore nosso site para descobrir recursos educacionais, histórias inspiradoras e oportunidades de envolvimento. Juntos, podemos transformar o nosso presente para criar o futuro sustentável que todos merecemos.</p>
-
-            <button><a>Venha fazer parte dessa jornada.</a></button>
         </div>
 
         <div class="col">

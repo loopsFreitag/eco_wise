@@ -57,6 +57,10 @@
         border-radius: 25px;
     }
 
+    .menuzinho{
+        font-weight:bold;
+    }
+
     .a-header::after {
     content: '';
     height: 2.5px;
@@ -69,19 +73,9 @@
     z-index:1001 ;
 }
 
-.a-header2::after {
-    content: '';
-    height: 2.5px;
-    width: 0px;
-    background-color: black;
-    position: absolute;
-    top: 4em;
-    left: 1.5em;
-    transition: 0.4s ease;
-    z-index:1001 ;
-}
 
-    .a-header:hover::after,.a-header2:hover::after {
+
+    .a-header:hover::after {
         width: 4em;
     }
 
@@ -139,18 +133,17 @@
     }
 
     <?php if ($user->id) : ?>.login-header button {
-        margin-top: 0.6em;
         padding: 0.9em;
         border: none;
         font-size: 20px;
         background-color: white;
         border-radius: 10px;
-        width: 10em;
     }
 
     .login-header button:hover {
         cursor: pointer;
         background-color:#8ecae6;
+        color:white;
     }
 
     .dropdown-menu ul li {
@@ -165,8 +158,8 @@
 
     .dropdown-menu {
         position: absolute;
-        top: 5.2em;
-        right: 5em;
+        top: 4em;
+        right: 6em;
         padding: 10px 20px;
         background-color: #f2f2f2;
         width: 200px;
@@ -246,6 +239,10 @@
     }
 
     <?php endif ?>
+
+    .sub-menus:hover{
+        color:#ccc;
+    }
     /* =========================== MEDIA HEADER ===========================*/
     @media screen and (min-width:1000px) and (max-width:1550px) {
         header .navbar ul li a {
@@ -256,9 +253,17 @@
         .login-header {
             font-size: 14px;
         }
+
+        .login-header button {
+        padding: 0.5em;
+        border: none;
+        font-size: 20px;
+        background-color: white;
+        border-radius: 10px;
+    }
     }
 
-    @media (max-width:1000px) {
+    @media (max-width:1100px) {
         header {
             padding: 0.6em;
         }
@@ -301,6 +306,8 @@
 
     }
 
+    
+
     @media (max-width:500px) {
         header .logo {
             font-size: 20px;
@@ -329,29 +336,34 @@
 
 
     }
-
-    @media (max-width:400px) {
-        .login-header button {
-            padding: 0.5em;
-        }
-    }
-
-    @media (max-width:300px) {
-        .login-header button {
-            font-size: 10px;
-        }
-    }
-
-    #user-menu-button p{
+    #user-menu-button a{
         text-transform:capitalize;
     }
+    @media (max-width:450px){
+        header{
+            height:10em;
+        }
+
+        .logo{
+            font-size:16px;
+        }
+
+        .login-header button {
+        padding: 0.7em;
+        border: none;
+        font-size: 14px;
+        background-color: white;
+        border-radius: 10px;
+    }
+}
+    
 </style>
 
 <header>
 
     <a href="/site/home" class="logo">EcoWise</a>
     <input type="checkbox" id="menu-bar">
-    <label for="menu-bar">Menu</label>
+    <label for="menu-bar" class="menuzinho">Menu</label>
 
     <nav class="navbar">
         <ul class="nav-links">
@@ -364,18 +376,18 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="/recycling" class="a-header">Reciclagem</a>
+                        <a href="/recycling"  id="#reciclagem" class="sub-menus">Reciclagem</a>
                     </li>
                     <li class="nav-link">
-                        <a href="#" class="a-header2">
+                        <a href="#" class="sub-menus">
                             Ações antrópicas
                             <span class="material-icons dropdown-icon"> arrow_left </span>
                         </a>
                         <ul>
-                            <li><a href="/wildfire" class="a-header">Queimadas</a></li>
-                            <li><a href="/acidrain" class="a-header">Chuva ácida</a></li>
-                            <li><a href="/deforestation" class="a-header">Desmatamento</a></li>
-                            <li><a href="/pollution" class="a-header">Poluição</a></li>
+                            <li><a href="/wildfire" class="sub-menus">Queimadas</a></li>
+                            <li><a href="/acidrain" class="sub-menus">Chuva ácida</a></li>
+                            <li><a href="/deforestation" class="sub-menus">Desmatamento</a></li>
+                            <li><a href="/pollution" class="sub-menus">Poluição</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -386,7 +398,7 @@
                         $collectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id, 1, 2]);
                         if($collectionOnGoing->id) :
                     ?>
-                    <li class="nav-link"><a href="/wastecollectioncurrent" class="a-header" >Coleta de Resíduos</a></li>
+                    <li class="nav-link"><a href="/wastecollectioncurrent" class="a-header" id="#coleta">Coleta de Resíduos</a></li>
                     <?php else: ?>
                     <li class="nav-link"><a href="/wastecollectioncreation" class="a-header">Coleta de Resíduos</a></li>
                     <?php endif ?>
@@ -404,7 +416,7 @@
                     </span>
                 </a>
                 <ul>
-                    <li><a href="/collectioninfo" class="a-header">Coleta</a></li>
+                    <li><a href="/collectioninfo" class="sub-menus">Coleta</a></li>
 
                 </ul>
             </li>
@@ -412,12 +424,11 @@
     </nav>
 
     <?php if ($user->id) : ?>
-        <div class="login-header">
-            <div class="user-botao" onclick="Menuclicado();">
+        <div class="login-header" onclick="Menuclicado();">
+            
                 <button id="user-menu-button">
-                    <p><?= $user->person->name ?> </p>
+                    <a><?= $user->person->name ?> </a>
                 </button>
-            </div>
 
             <div class="dropdown-menu">
                 <ul>

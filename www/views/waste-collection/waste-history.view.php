@@ -69,6 +69,56 @@
     .data2{
         font-size:20px;
     }
+
+    @media (max-width: 950px) {
+        .intern {
+            width: 90%;
+        }
+
+        .int-card1 h1,
+        .data-horario h1 {
+            font-size: 20px;
+        }
+
+        .int-card1 p,
+        .data-horario p,
+        .status,
+        .data,
+        .data2 {
+            font-size: 16px;
+        }
+
+    }
+
+    @media (max-width: 700px) {
+        .card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .button button {
+            margin-top: 1em;
+        }
+    }
+
+    .nenhum-historico{
+        padding:4em;
+    }
+
+    .nenhum-historico p{
+        font-weight:bold;
+        font-size:25px;
+    }
+
+    @media (max-width:500px){
+        .nenhum-historico{
+        padding:1em;
+        }
+
+        .nenhum-historico p{
+            font-size:20px;
+        }
+    }
 </style>
 <body>
 <?php include_once(__DIR__ . "/../header/header-waste-collection.php")?>
@@ -98,7 +148,9 @@
                 </div>
                 <?php endforeach?>
             <?php else: ?>
-                <p>Nenhum historico disponivel</p>
+                <div class="nenhum-historico">
+                    <p>Nenhum historico disponivel</p>
+                </div>
             <?php endif ?>
 
     </div>

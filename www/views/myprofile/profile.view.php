@@ -78,7 +78,8 @@
     .nome-imagem p {
         text-align: center;
         padding-top: 0.5em;
-        line-height: 0.7;
+        line-height: 1;
+        font-size:20px;
     }
 
     .nome-imagem p:first-of-type {
@@ -86,7 +87,7 @@
     }
 
     .imagem img {
-        width: 10em;
+        width: 12em;
     }
 
     input[type="text"],
@@ -154,6 +155,8 @@
         border-radius: 5px;
         margin-top: 2em;
         border: none;
+        font-weight:bold;
+        border-bottom:4px solid silver;
     }
 
     .button-endereco:hover,
@@ -161,6 +164,7 @@
         cursor: pointer;
         background-color: grey;
         color: white;
+        border-bottom:3px solid grey;
     }
 
     .modal {
@@ -206,6 +210,53 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    @media(max-width: 800px) {
+        .container {
+            width: 100%;
+            height: auto;
+            flex-direction: column;
+        }
+
+        .usuario,
+        .dados,
+        .endereco {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .imagem img {
+            width: 8em;
+        }
+
+        .nome-imagem p {
+            font-size: 18px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"],
+        input[type="date"] {
+            width: 100%;
+        }
+
+        .button-endereco,
+        .button-dados {
+            width: 80%;
+        }
+    }
+
+    @media(max-width: 480px) {
+        .button-endereco,
+        .button-dados {
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        .modal-content {
+            max-width: 100%;
+        }
+    }
 </style>
 
 <body>
@@ -230,7 +281,7 @@
                         <?php if (empty($user->person->document)) : ?>
                             <div class="dados-interno">
                                 <p>CPF</p>
-                                <input type="text" name="document">
+                                <input type="text" name="document" id="cpfInput">
                             </div>
                         <?php endif ?>
 
@@ -241,7 +292,7 @@
 
                         <div class="dados-interno">
                             <p>pais</p>
-                            <input type="text" name="country" value="<?= ($user->person->country) ?: '' ?>">
+                            <input id="country "type="text" name="country" value="<?= ($user->person->country) ?: '' ?>">
                         </div>
 
                         <div class="opcao-usuario">
@@ -256,7 +307,7 @@
                         </div>
 
                         <div class="botao">
-                            <button type="button" class="button-dados" onclick="updateProfile()">Enviar</button>
+                            <button type="button" class="button-dados" onclick="updateProfile()">Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -373,6 +424,26 @@
     closeError.onclick = function() {
         modalError.style.display = 'none';
     }
+
+    document.getElementById('cpfInput').addEventListener('input', function(e) {
+        var inputValue = e.target.value.replace(/\D/g, '').substring(0, 11); 
+    if (inputValue.length > 3) {
+        inputValue = inputValue.substring(0, 3) + '.' + inputValue.substring(3);
+    }
+    if (inputValue.length > 7) {
+        inputValue = inputValue.substring(0, 7) + '.' + inputValue.substring(7);
+    }
+    if (inputValue.length > 11) {
+        inputValue = inputValue.substring(0, 11) + '-' + inputValue.substring(11);
+    }
+    e.target.value = inputValue;
+});
+
+    document.getElementById('country').addEventListener('input', function(e) {
+        let inputValue = e.target.value;
+        inputValue = inputValue.replace(/[^a-zA-Z\s]/g, ''); // Remove tudo exceto letras e espaços
+        e.target.value = inputValue;
+    });
 </script>
 
 </html>

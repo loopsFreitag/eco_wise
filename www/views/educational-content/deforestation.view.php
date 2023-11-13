@@ -162,6 +162,83 @@ strong{
     }
 }
 
+@media(max-width:1150px){
+    main h1 {
+        font-size:100px;
+    }
+}
+
+@media (max-width: 850px) {
+    main h1 {
+        font-size: 70px;
+    }
+    .definicao h1 {
+        font-size: 40px;
+    }
+}
+
+/* Max-width: 700px */
+@media (max-width: 700px) {
+    .texto-definicao{
+    margin: 0 ;
+    }
+
+    .definicao h1 {
+        font-size: 40px;
+    }
+   
+    .imagem img {
+        width: 80%;
+    }
+}
+
+
+@media (max-width: 600px) {
+    main h1 {
+        font-size: 45px;
+    }
+    .conteudo p {
+        font-size: 14px;
+    }
+    .definicao h1 {
+        font-size: 30px;
+    }
+    .texto-definicao p {
+        font-size: 14px;
+    }
+    .imagem img {
+        width: 80%;
+    }
+}
+
+@media(max-width:500px){
+    main h1{
+        font-size:45px;
+    }
+
+    .conteudo p {
+        font-size:14px;
+    }
+
+    .definicao h1 {
+        font-size:30px;
+    }
+
+
+    .texto-definicao p{
+        font-size:14px;
+    }
+
+    .conteudo {
+        margin: 1em;    
+    }
+
+    .conteudo h4 {
+    font-size: 22px; 
+}
+}
+
+
 </style>
 <body>
     <?php include_once(__DIR__ . "/../header/header.php")?>
