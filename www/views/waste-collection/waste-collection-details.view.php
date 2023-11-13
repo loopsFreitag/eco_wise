@@ -305,7 +305,7 @@ textarea {
                 throw new Error('Request failed with status: ' + response.status)
             })
             .then(function(data) {
-                location.reload()
+                window.location.href = "/wastecollection";
             }).catch((error) => {
                 console.log(error)
             });

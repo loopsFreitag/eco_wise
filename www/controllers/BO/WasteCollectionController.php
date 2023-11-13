@@ -112,7 +112,16 @@ class WasteCollectionController extends Controller {
     */
     public function cancelEvent ($request) {
         $colletion = R::load("waste_collection", $request["id"]);
+
         $colletion->status = 3;
+
+        $user = $this->getUserAuth();
+
+        if ($user->type == 2)  {
+            $colletion->status = 1;
+            $colletion->waste_collector = null;
+        }
+
         $colletion->denny_reason = $_POST["denny_reason"];
         R::store($colletion);
         $this->response("200", "canceled");
