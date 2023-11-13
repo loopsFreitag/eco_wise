@@ -110,7 +110,9 @@ class WasteCollectionController extends Controller {
     public function createAdress($userId) {
         $address = R::dispense("address");
         $address->user_id = $userId;
-        $address->import($_POST, "cep, uf, city, neighborhood, address, number");
+        $cep = str_replace("-", "", $_POST["cep"]);
+        $address->cep = $cep;
+        $address->import($_POST, "uf, city, neighborhood, address, number");
         if ($_POST["adjunct"]) {
             $address->adjunct = $_POST["adjunct"];
         }

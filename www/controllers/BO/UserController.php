@@ -156,14 +156,15 @@ class UserController extends Controller
 
     public function createAdress($userId)
     {
-        $addressInfo = $this->getAddressInfo($_POST["cep"]);
+        $cep = str_replace("-", "", $_POST["cep"]);
+        $addressInfo = $this->getAddressInfo($cep);
         $address = R::dispense("address");
         $address->user_id = $userId;
         $address->uf = $addressInfo["uf"];
         $address->city = $addressInfo["localidade"];
         $address->neighborhood = $addressInfo["bairro"];
         $address->address = $addressInfo["logradouro"];
-        $address->cep = $_POST["cep"];
+        $address->cep = $cep;
         $address->number = $_POST["number"];
         if ($_POST["adjunct"]) {
             $address->adjunct = $_POST["adjunct"];

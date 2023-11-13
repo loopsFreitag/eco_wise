@@ -346,7 +346,7 @@
 
                 <div class="input-dentro">
                     <label for="cep">CEP:</label>
-                    <input type="text" id="cep" name="cep" placeholder="Digite o CEP" onfocusout="getCep()" required>
+                    <input type="text" id="cep" name="cep" placeholder="Digite o CEP" onfocusout="getCep()" required maxlength="8" oninput="formatarCep(this)" >
 
                     <label for="address">Logradouro:</label>
                     <input type="text" id="address" name="address" readonly>
@@ -464,7 +464,10 @@
         }
 
         function getCep() {
-            const cepInput = document.getElementById("cep").value;
+            cepInput = document.getElementById("cep").value;
+
+            cepInput = cepInput.replace("-", "");
+
             const url = `https://viacep.com.br/ws/${cepInput}/json/`
 
             fetch(url)
@@ -537,6 +540,20 @@
                 modalFormCollection.style.display = "none";
             }
         }
+
+        function formatarCep(input) {
+        // Remove qualquer caractere não numérico
+        let cep = input.value.replace(/\D/g, '');
+
+        // Garante que o CEP tenha no máximo 8 caracteres
+        cep = cep.slice(0, 8);
+
+        // Adiciona formatação (xxxxx-xxx)
+        cep = cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+
+        // Atualiza o valor no campo de input
+        input.value = cep;
+     }
     </script>
 </body>
 

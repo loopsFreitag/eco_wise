@@ -318,7 +318,7 @@
                     <form action="" id="address">
                         <div class="endereco-interno">
                             <p>cep</p>
-                            <input type="text" name="cep">
+                            <input type="text" name="cep" id="cepInput" maxlength="8" oninput="formatarCep(this)">
                         </div>
                         <div class="endereco-interno">
                             <p>numero</p>
@@ -444,6 +444,21 @@
         inputValue = inputValue.replace(/[^a-zA-Z\s]/g, ''); // Remove tudo exceto letras e espaços
         e.target.value = inputValue;
     });
+
+    function formatarCep(input) {
+        // Remove qualquer caractere não numérico
+        let cep = input.value.replace(/\D/g, '');
+
+        // Garante que o CEP tenha no máximo 8 caracteres
+        cep = cep.slice(0, 8);
+
+        // Adiciona formatação (xxxxx-xxx)
+        cep = cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+
+        // Atualiza o valor no campo de input
+        input.value = cep;
+  }
+
 </script>
 
 </html>
