@@ -149,7 +149,7 @@
                 <?php endforeach?>
             <?php else: ?>
                 <div class="nenhum-historico">
-                    <p>Nenhum historico disponivel</p>
+                    <p>Nenhum histórico disponivel</p>
                 </div>
             <?php endif ?>
 

@@ -200,10 +200,17 @@ header div{
         }
     }
 
-    @media (max-width:450px){
+    
+
+    @media (max-width:500px){
         header{
-            height:7em;
-        }
+            padding: 2px ;
+    }
+
+
+    header div{
+        padding:0;
+    }
 
         .logo{
             font-size:16px;
@@ -239,14 +246,14 @@ header div{
                         $collectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id, 1, 2]);
                         if($collectionOnGoing->id) :
                     ?>
-                    <a href="/wastecollectioncurrent" class="a-header" >Corrida</a>
+                    <a href="/wastecollectioncurrent" class="a-header" >Coletas</a>
                     <?php else: ?>
-                    <a href="/wastecollectioncreation" class="a-header">Corrida</a>
+                    <a href="/wastecollectioncreation" class="a-header">Coletas</a>
                     <?php endif ?>
                 <?php else: ?>
-                    <a href="/wastecollection" class="a-header">Corrida</a>
+                    <a href="/wastecollection" class="a-header">Coletas</a>
                 <?php endif ?>
-                <a href="/collectionHistory" class="a-header2">Historico de coletas</a>
+                <a href="/collectionHistory" class="a-header2">Histórico</a>
 
         </div>
         

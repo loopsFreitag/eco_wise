@@ -31,7 +31,7 @@
     }
 
     .table table{
-        margin-top: 5em;
+            margin-top: 5em;
             width: 70%;
             border-collapse: collapse;
             font-size: 1em;
@@ -78,6 +78,55 @@
             background-color:#0f6a67;
             cursor:pointer;
         }
+
+    @media(max-width:1000px){
+        .table table{
+            margin-top: 1em;
+            width: 90%;
+            font-size: 10px;
+    }
+    }
+
+
+    @media (max-width:750px){
+        .table table{
+            width:80%
+        }
+
+        .table table td{
+            display:block;
+            padding:0.5rem 1rem;
+        }
+
+        .table table td:first-child{
+            padding-top:2em;
+        }
+
+        .table table td:last-child{
+            padding-bottom:2em;
+        }
+
+        .table table th{
+            display:none;
+        }
+
+        .table table td::before{
+            content:attr(data-cell) ": ";
+            font-weight:700;
+            
+        }
+    }
+
+    @media(max-width:600px){
+        .interno-admin{
+            font-size:30px;
+    }
+
+    .interno-admin i{
+
+        font-size:40px;
+    }
+    }
 </style>
 <body>
 <?php include_once(__DIR__ . "/../header/header.php")?>
@@ -104,10 +153,10 @@
             
             <?php foreach ($allusers as $user):?>
             <tr>
-                <td><?=$user->id?></td>
-                <td><?=$user->person->name?></td>
-                <td><?=$user->person->email?></td>
-                <td>
+                <td data-cell="ID"><?=$user->id?></td>
+                <td data-cell="Nome"><?=$user->person->name?></td>
+                <td data-cell="Email"><?=$user->person->email?></td>
+                <td data-cell="Tipo">
                     <?php if ($user->type == 1) : ?>
                         Usuario
                     <?php elseif($user->type == 2) : ?>
@@ -116,9 +165,9 @@
                         Admin
                     <?php endif ?>    
                 </td>
-                <td><?=($user->person->country) ?:"<font color='red'>Não Cadastrado</font>" ?></td>
-                <td><?=($user->person->birth_date) ?:"<font color='red'>Não Cadastrado</font>"?></td>
-                <td><?=($user->person->document) ?:"<font color='red'>Não Cadastrado</font>"?></td>
+                <td data-cell="País"><?=($user->person->country) ?:"<font color='red'>Não Cadastrado</font>" ?></td>
+                <td data-cell="Data de Nascimento"><?=($user->person->birth_date) ?:"<font color='red'>Não Cadastrado</font>"?></td>
+                <td data-cell="CPF"><?=($user->person->document) ?:"<font color='red'>Não Cadastrado</font>"?></td>
                 <?php if ($user->type ==3 ) : ?>
                     <td>Já é um admin</td>
                 <?php else : ?>
