@@ -291,7 +291,7 @@
                         </div>
 
                         <div class="dados-interno">
-                            <p>pais</p>
+                            <p>país</p>
                             <input id="country "type="text" name="country" value="<?= ($user->person->country) ?: '' ?>">
                         </div>
 

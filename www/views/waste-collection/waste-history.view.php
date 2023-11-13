@@ -139,7 +139,7 @@
                         <?php if($collection->status == 3): ?>
                             <p class="status">Cancelado</p>
                         <?php else:?>
-                            <p class="status">Entregue</p>
+                            <p class="status">Coletado</p>
                         <?php endif?>   
                 
                     <div class="button">
