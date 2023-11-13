@@ -57,17 +57,8 @@ class LoginController extends Controller {
             die('email already registered');
         }
 
-
         if (strlen($_POST["password"]) < 8) {
             die("Password must be at least 8 chars long");
-        }
-
-        if ( !preg_match("/[a-z]/i", $_POST["password"])) {
-            die("password must contain at least one letter");
-        }
-
-        if ( !preg_match("/[0-9]/", $_POST["password"])) {
-            die("password must contain at least one number");
         }
 
         if ($_POST["password"] !== $_POST["password_confirmation"]) {

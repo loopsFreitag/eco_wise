@@ -22,6 +22,10 @@ $routes = [
     "/pollution" => "FO/EducationalContentController@pollution",
     "/recycling" => "FO/EducationalContentController@recycling",
     "/collectioninfo" => "BO/WasteCollectionController@collectionInfo",
+    "/myprofile" => "BO/UserController@myprofile",
+    "/wastecollectioncurrent" => "BO/WasteCollectionController@currentCollection",
+    "/collectionHistory" => "BO/WasteCollectionController@collectionHistory",
+    "/dashboard" => "BO/AdminController@index",
 ];
 
 $protected = [
@@ -46,4 +50,8 @@ $protected = [
     "/pollution" => false,
     "/recycling" => false,
     "/collectioninfo" => false,
+    "/myprofile" => true,
+    "/wastecollectioncurrent" => true,
+    "/collectionHistory" => true,
+    "/dashboard" => true,
 ];

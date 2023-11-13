@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style_login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <title>Login</title>
 
 </head>
@@ -126,6 +131,19 @@ form .pass-txt{
   background: #2c52ed;
 }
 
+.home button {
+    position:absolute;
+    top:0.6em;
+    left:0.6em;
+    font-size: 30px;
+    border:none;
+    }
+
+    
+  .home button i:hover{
+    cursor:pointer;
+  }
+
 @keyframes fade-up {
     0% {
         opacity: 0;
@@ -140,8 +158,10 @@ form .pass-txt{
 </style>
 
 <body>
+    <div class="home">
+        <button onclick="window.location='/site/home'"><i class="fa-solid fa-house" style="color: #4377d0;"></i></button>
+    </div>
     <div class="container">
-
         <h1>Login</h1>
         <?php if ($is_invalid): ?>
             <em style="color: red;">Login invalido</em>

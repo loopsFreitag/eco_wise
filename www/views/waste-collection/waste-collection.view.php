@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,85 +9,159 @@
 </head>
 
 <style>
-    *{
-        box-sizing: border-box;
-        list-style-type:none;
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding-top:4em;
+}
+
+.interno-container{
+    width:60%;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    padding:2em;
+}
+
+.interno-container h1{
+    text-align:center;
+    font-size:40px;
+}
+
+.section{
+    padding-top:1em;
+    list-style-type:none;
+}
+
+.section:last-of-type{
+    padding-top:3em;
+}
+
+.tamanho,.tamanho2{
+    margin:1em;
+    padding:1em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid silver;
+}
+
+.button button{
+    border:none;
+    padding:1em;
+    font-weight:bold;
+    border-radius:10px;
+    background-color:#2caaa0;
+    color:white;
+}
+
+.button button:hover{
+    background-color:#0f6a67;
+    cursor:pointer;
+}
+
+.coleta h1,.local h1{
+        font-size:26px;
+        font-weight:bold;
     }
 
-
-    .container {
-        display: flex;
-        max-width: 100%;
-        justify-content: space-between;
-    }
-    .section{
-        border: 2px solid black;
-        max-width: 25%;
-
+    .coleta p,.local p{
+        font-size:20px;
+        text-transform:capitalize;
+        padding-top:0.5em;
     }
 
-    .tamanho li{
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
+    .status,.data{
+        font-size:20px;
+    }
+    
+    .data2{
+        
+        font-size:20px;
     }
 
-    .container-2 {
-        display: flex;
-        justify-content: center;
-        padding-top: 2em;
-    }
-
-    .section-2{
-        width: 100%;
-        border: 2px solid black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .titulo{
+        color:#0f6a67;
     }
 </style>
 
 <body>
-<h1>Coletas disponiveis</h1>
-<?php if (isset($user)) : ?>
-    <p>Bem-vindo <?= htmlspecialchars($user->person->name) ?></p>
-<?php endif; ?>
+<?php include_once(__DIR__ . "/../header/header-waste-collection.php")?>
+<div class="container">
+    <div class="interno-container">
+        <h1 class="titulo">Coletas Disponíveis</h1>
 
-<div style="display:flex; flex-direction: column;" class="section">
-    <?php if (!empty($openCollections)) : ?>
-    <h3>Coletas disponiveis</h3>
-    <?php foreach ($openCollections as $collections) : ?>
-        <div class="tamanho">
-            <li>
-            <?= $collections->id ?>
-            <a href="/collection/<?= $collections->id ?>">Detalhes</a>
-            </li>
+        <div  class="section">
+            <?php if (!empty($openCollections)) : ?>
+            <?php foreach ($openCollections as $collections) : ?>
+                <div class="tamanho">
+                    <?php
+
+                    $sql = R::getAll("SELECT a.id
+                                        FROM waste_collection wc
+                                        JOIN address_collection ac ON wc.id = ac.collection_id
+                                        JOIN address a ON ac.address_id = a.id
+                                        WHERE wc.id = :wc_id", [":wc_id" => $collection->id]);
+
+                    $address = R::load("address", $sql[0]["id"]);
+
+                    ?>
+                    <div class="coleta">
+                        <h1>Coleta as:</h1>
+                        <p><?= $collections->collection_time ?></p>
+                    </div>
+                    <div class="local">
+                        <h1>Em:</h1>
+                        <p><?= $address->neighborhood?></p>
+                    </div>
+
+                    <div class="button">
+                        <button type="button" onclick="window.location='/collection/<?=$collections->id?>'">Detalhes</button>
+                    </div>
+                </div>
+            <?php endforeach ?>
+            <?php else: ?>
+            <h3>Sem coletas disponiveis</h3>
+            <?php endif ?>
+
         </div>
-    <?php endforeach ?>
-    <?php else: ?>
-    <h3>Sem coletas disponiveis</h3>
-    <?php endif ?>
 
-</div>
+        <div class="section">
+            <?php if (!empty($collectionScheduled)) : ?>
+            <h1 class="titulo">Coletas Marcadas</h1>
+            <?php foreach ($collectionScheduled as $collections) : ?>
+                <div class="tamanho2">
+                <?php
+                $sql = R::getAll("SELECT a.id
+                                    FROM waste_collection wc
+                                    JOIN address_collection ac ON wc.id = ac.collection_id
+                                    JOIN address a ON ac.address_id = a.id
+                                    WHERE wc.id = :wc_id", [":wc_id" => $collection->id]);
 
-<div style="display:flex; flex-direction: column;" class="section">
-    <?php if (!empty($collectionScheduled)) : ?>
-    <h3>Coletas disponiveis</h3>
-    <?php foreach ($collectionScheduled as $collections) : ?>
-        <div class="tamanho">
-            <li>
-            <?= $collections->id ?>
-            <a href="/collection/<?= $collections->id ?>">Detalhes</a>
-            </li>
+                $address = R::load("address", $sql[0]["id"]);?>
+                    <div class="coleta">
+                        <h1>Coleta as:</h1>
+                        <p><?= $collections->collection_time ?></p>
+                    </div>
+                    <div class="local">
+                        <h1>Em:</h1>
+                        <p><?= $address->neighborhood?></p>
+                    </div>
+
+                    <div class="button">
+                        <button type="button" onclick="window.location='/collection/<?=$collections->id?>'">Detalhes</button>
+                    </div>
+                </div>
+            <?php endforeach ?>
+            <?php else: ?>
+            <h3>Sem coletas marcadas</h3>
+            <?php endif ?>
         </div>
-    <?php endforeach ?>
-    <?php else: ?>
-    <h3>Sem coletas marcadas</h3>
-    <?php endif ?>
-
+    </div>
 </div>
-
 </body>
 
 <script>
