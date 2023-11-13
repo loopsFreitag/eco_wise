@@ -77,7 +77,42 @@ main p {
     text-align: justify;
 }
 
+@media (max-width:1000px){
+    
+main{
+    padding: 0;
+}
 
+.informacao,.como-coletar{
+    padding:1em;
+}
+}
+
+@media (max-width:850px){
+    .informacao h1,.como-coletar h1 {
+        font-size:24px;
+    }
+
+    .informacao p,.informacao ul li{
+        font-size:16px;
+    }
+
+    .como-coletar p,.como-coletar ol li{
+        font-size:16px;
+    }
+}
+
+@media (max-width:750px){
+    main{
+        margin:2em;
+    }
+}
+
+@media(max-width:400px){
+    main{
+        margin:0;
+    }
+}
 
 </style>
 <body>
@@ -86,16 +121,16 @@ main p {
     <main>
         <div class="informacao">
             <h1>O que é a Coleta de Resíduos?</h1>
-            <p>A função de um "iFood de lixo" é criar uma plataforma de serviços que conecta os catadores de lixo diretamente aos clientes que desejam se livrar de resíduos indesejados de maneira conveniente e eficiente. Esse conceito inovador busca abordar duas questões cruciais: a gestão de resíduos e a geração de emprego, além de promover a sustentabilidade.
+            <p>A função de um "Ecowise" é criar uma plataforma de serviços que conecta os catadores de lixo diretamente aos clientes que desejam se livrar de resíduos indesejados de maneira conveniente e eficiente. Esse conceito inovador busca abordar duas questões cruciais: a gestão de resíduos e a geração de emprego, além de promover a sustentabilidade.
             </p>
             <p>Aqui está uma explicação mais detalhada dessa função:</p>
             <ul>
-                <li><strong>Conexão entre catadores e clientes:</strong> Assim como o iFood conecta restaurantes e consumidores, o "iFood de lixo" conecta pessoas que têm resíduos a serem descartados com catadores de lixo ou empresas de coleta de resíduos. Isso elimina a necessidade de os clientes lidarem diretamente com a logística do descarte de lixo, tornando o processo mais simples e conveniente.</li>
+                <li><strong>Conexão entre catadores e clientes:</strong> Assim como o iFood conecta restaurantes e consumidores, o "Ecowise" conecta pessoas que têm resíduos a serem descartados com catadores de lixo ou empresas de coleta de resíduos. Isso elimina a necessidade de os clientes lidarem diretamente com a logística do descarte de lixo, tornando o processo mais simples e conveniente.</li>
                 <li><strong>Facilidade e comodidade:</strong> Os catadores de lixo podem ir diretamente até a casa dos clientes para coletar o lixo, economizando tempo e esforço dos clientes. Isso é especialmente útil para resíduos volumosos ou perigosos, como móveis antigos, eletrônicos, eletrodomésticos quebrados e outros itens que não podem ser descartados no lixo comum.
                 </li>
                 <li><strong>Sustentabilidade:</strong> O serviço promove a reciclagem e a reutilização, uma vez que os catadores de lixo podem separar e encaminhar os materiais recicláveis para as instalações apropriadas, enquanto outros itens ainda podem ser reutilizados ou reciclados de alguma forma. Isso contribui para a redução do desperdício e do impacto ambiental.</li>
                 <li><strong>Geração de empregos:</strong> A plataforma também desempenha um papel importante na criação de empregos para catadores de lixo, muitos dos quais são trabalhadores informais que podem se beneficiar da oportunidade de trabalho regular e do acesso a um grupo maior de clientes.</li>
-                <li><strong>Responsabilidade social:</strong> Além de lidar com questões práticas de descarte de resíduos, o "iFood de lixo" pode ajudar a sensibilizar a população sobre a importância da gestão responsável de resíduos, incentivando práticas sustentáveis e responsáveis.</li>
+                <li><strong>Responsabilidade social:</strong> Além de lidar com questões práticas de descarte de resíduos, o "Ecowise" pode ajudar a sensibilizar a população sobre a importância da gestão responsável de resíduos, incentivando práticas sustentáveis e responsáveis.</li>
             </ul>     
         </div>
     

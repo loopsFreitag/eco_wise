@@ -212,6 +212,58 @@
             transform: translateX(0px) scale(1);
         }
     }
+
+    @media (max-width:1250px){
+        .imagem-main{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .imagem-main img{
+            width:90%;
+            height:40em;
+        }
+        .conteudo1 {
+            margin: 4em;
+            padding:1em;
+        }
+    }
+
+    @media (max-width:700px){
+        .conteudo2 {
+            padding: 1em;
+        }
+
+        .conteudo1-img img{
+            width:80%;
+        }
+        
+        .conteudo3{
+            padding:1em;
+        }
+    }
+
+
+    @media (max-width:650px){
+        .imagem-main img{
+            width:90%;
+            height:30em;
+        }
+    }
+
+    @media (max-width:500px){
+        .imagem-main img{
+            width:90%;
+            height:25em;
+        }
+
+        .conteudo1{
+            padding:0;
+            margin:1em;
+        }
+    }
+   
     </style>
 
     <body>

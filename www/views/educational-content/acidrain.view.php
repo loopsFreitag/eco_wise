@@ -238,7 +238,7 @@ strong{
 
 @media (max-width:900px){
     .titulo-principal1, .titulo-principal2 {
-        font-size: 20px;
+        font-size: 70px;
     }
 
     .definicao h1 {
@@ -246,11 +246,11 @@ strong{
     }
 
     .imagem img{
-        width: 100px;
+        width: 80%;
     }
 
     .imagem-2 img {
-        width: 100px;
+        width: 80%;
     }
     
 }
@@ -258,39 +258,58 @@ strong{
 
 
 
-@media (max-width:500px){
+/* @media (max-width: 850px) */
+@media (max-width: 850px) {
+    .titulo-principal {
+        font-size: 70px;
+    }
 
-    .row h1 {
+    .definicao h1 {
+        font-size: 55px;
+    }
+}
+
+/* @media (max-width: 700px) */
+@media (max-width: 700px) {
+    .texto-definicao {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .definicao h1 {
         font-size: 40px;
     }
 
-    .col img {
-        padding-right: 20px;
+    .texto-definicao p {
+        width: 100%;
     }
-
-    .login-entrar{
-        display: none;
-    }
-    
-    .cadastrar-se{
-        display: none;
-    }
-
-    .login-icone i {
-        font-size: 15px;
-        padding-left: 2em;
-    }
-
-    .texto button {
-        font-size: 14px;
-    }
-
-    .card img {
-        min-width: 100%;
-      }
-
 }
 
+
+
+/* @media (max-width: 500px) - fallback para outras propriedades */
+@media (max-width:600px){
+    .titulo-principal1, .titulo-principal2 {
+        font-size: 40px;
+    }
+
+    .definicao h1 {
+        font-size:30px;
+    }
+
+    .conteudo {
+        margin: 1em;
+    }
+
+    .conteudo p {
+        padding-top: 1rem;
+        line-height: 1.2;
+    }
+
+    .texto-definicao {
+        margin: 0;
+    }
+}
 @keyframes fade-up {
         0% {
             opacity: 0;

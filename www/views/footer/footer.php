@@ -147,18 +147,13 @@
             <div class="coluna" id="services">
                 <h3>Serviços</h3>
                 <div class="links">
-                    <a href="#">Coleta</a>
-                    <a href="#">Conteúdos</a>
+                    <a href="/recycling">Reciclagem</a>
+                    <a href="/wastecollection">Coleta</a>
                 </div>
             </div>
 
-            <div class="coluna" id="useful-links">
-                <h3>Links</h3>
-                <div class="links">
-                    <a href="#">Sobre Nós</a>
-                    <a href="#">Denúncias</a>
-                </div>
-            </div>
+
         </div>
     </div>
 </footer>
+

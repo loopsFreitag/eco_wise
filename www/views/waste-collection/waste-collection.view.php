@@ -86,6 +86,48 @@
     .titulo{
         color:#0f6a67;
     }
+
+    .coletas-disponiveis,.coletas-marcadas{
+        margin:2em;
+        font-weight:bold;
+        font-size:25px;
+        border-bottom:1px solid silver;
+        text-align:center;
+        text-transform:justify;
+    }
+
+    @media (max-width:1000px){
+        .tamanho,.tamanho2{
+            width: 100%;
+            height: auto;
+            flex-direction: column;
+        }
+
+        .coleta h1,.local h1{
+            font-size: 22px;
+        }
+
+        .coleta p,.local p{
+            font-size:18px;
+            padding-bottom:1em;
+        }
+        
+    }
+
+    @media (max-width:768px){
+        .interno-container h1{
+            font-size:30px;
+            font-weight:bold;
+        }
+
+        .coleta h1,.local h1{
+            font-size: 22px;
+        }
+
+        .interno-container{
+            width:90%;
+        }
+    }
 </style>
 
 <body>
@@ -124,7 +166,9 @@
                 </div>
             <?php endforeach ?>
             <?php else: ?>
-            <h3>Sem coletas disponiveis</h3>
+            <div class="coletas-disponiveis">
+                <h3>Sem coletas disponiveis</h3>
+            </div>
             <?php endif ?>
 
         </div>
@@ -157,7 +201,9 @@
                 </div>
             <?php endforeach ?>
             <?php else: ?>
-            <h3>Sem coletas marcadas</h3>
+            <div class="coletas-marcadas">
+                <h3>Sem coletas marcadas</h3>
+            </div>
             <?php endif ?>
         </div>
     </div>

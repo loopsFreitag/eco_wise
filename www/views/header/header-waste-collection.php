@@ -47,6 +47,7 @@ header{
     align-items: center;
     justify-content: space-between;
     z-index: 1001;
+    height:5em;
 }
 
 header a,header p {
@@ -58,19 +59,22 @@ header div{
     padding:5px;
 }
 
-.login-header button {
+    .login-header button {
+        padding: 0.9em;
         border: none;
         font-size: 20px;
         background-color: white;
         border-radius: 10px;
-        width: 10em;
-        margin-top:0.7em;
-        padding:10px;
     }
 
     .login-header button:hover {
         cursor: pointer;
         background-color: #f2f2f2;
+        color:white;
+    }
+
+    #user-menu-button a{
+        text-transform:capitalize;
     }
 
     .dropdown-menu ul li {
@@ -86,7 +90,7 @@ header div{
     .dropdown-menu {
         position: absolute;
         top: 5.2em;
-        right: 5em;
+        right: 8em;
         padding: 10px 20px;
         background-color: #f2f2f2;
         width: 200px;
@@ -163,35 +167,74 @@ header div{
         padding-left:3em;
     }
 
-    .a-header::after {
-    content: '';
-    height: 2.5px;
-    width: 0px;
-    background-color: black;
-    position: absolute;
-    top: 2.7em;
-    left: 43em;
-    transition: 0.4s ease;
-    z-index:1001 ;
+    .a-header:hover,.a-header2:hover{
+        color:#ccc;
     }
 
-    .a-header2::after {
-    content: '';
-    height: 2.5px;
-    width: 0px;
-    background-color: black;
-    position: absolute;
-    top: 2.7em;
-    left: 49.5em;
-    transition: 0.4s ease;
-    z-index:1001 ;
+    @media (max-width:850px){
+        .a-header,.a-header2{
+            font-size:14px;
+        }
+
+        .login-header a{
+            font-size:14px;
+        }
+
+        .dropdown-menu {
+        right: 4em;
+       
     }
-    .a-header:hover::after,.a-header2:hover::after {
-        width: 2em;
-    }   
-    
+
+    }
+
+    @media (max-width:655px){
+
+        
+        .logo{
+            font-size:20px;
+        }
+
+        .historico{
+            display:flex;
+            flex-direction:column;
+        }
+    }
+
     
 
+    @media (max-width:500px){
+        header{
+            padding: 2px ;
+    }
+
+
+    header div{
+        padding:0;
+    }
+
+        .logo{
+            font-size:16px;
+        }
+
+        .login-header button {
+        padding: 0.7em;
+        border: none;
+        font-size: 14px;
+        background-color: white;
+        border-radius: 10px;
+    }
+    
+    .historico a{
+        padding-right:1em;
+    }
+
+    @media (max-width:400px){
+        .dropdown-menu {
+        top: 6em;
+        right: 2em;   
+    }
+    }
+}
 
 </style>
 
@@ -203,23 +246,22 @@ header div{
                         $collectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id, 1, 2]);
                         if($collectionOnGoing->id) :
                     ?>
-                    <a href="/wastecollectioncurrent" class="a-header" >Corrida</a>
+                    <a href="/wastecollectioncurrent" class="a-header" >Coletas</a>
                     <?php else: ?>
-                    <a href="/wastecollectioncreation" class="a-header">Corrida</a>
+                    <a href="/wastecollectioncreation" class="a-header">Coletas</a>
                     <?php endif ?>
                 <?php else: ?>
-                    <a href="/wastecollection" class="a-header">Corrida</a>
+                    <a href="/wastecollection" class="a-header">Coletas</a>
                 <?php endif ?>
-                <a href="/collectionHistory" class="a-header2">Historico de coletas</a>
+                <a href="/collectionHistory" class="a-header2">Histórico</a>
 
         </div>
         
-        <div class="login-header">
-            <div class="user-botao" onclick="Menuclicado();">
+        <div class="login-header" onclick="Menuclicado();">
+            
                 <button id="user-menu-button">
-                    <p><?= $user->person->name ?> </p>
+                    <a><?= $user->person->name ?> </a>
                 </button>
-            </div>
 
             <div class="dropdown-menu">
                 <ul>

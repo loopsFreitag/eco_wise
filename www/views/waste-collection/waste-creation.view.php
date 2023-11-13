@@ -209,6 +209,68 @@
             /* Para telas menores, faz os inputs ocuparem toda a largura */
         }
     }
+
+    @media (max-width: 500px) {
+        .modal-content {
+            width: 70%;
+        }
+
+        .input-dentro {
+            flex: 0 0 100%;
+            /* Para telas menores, faz os inputs ocuparem toda a largura */
+        }
+    }
+  
+    @media(max-width:1000px){
+        .dados-coleta p {
+        font-size: 16px;
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+
+        .imagem-coleta img{
+            height:40%;
+            padding-left:0;
+        }
+    }
+
+    @media(max-width:700px){
+        .dados-coleta h1 {
+        font-size: 22px;
+        font-weight: 900;
+    }
+
+        .dados-coleta p {
+        font-size: 14px;     
+    }
+
+    .dados-coleta button {
+        font-size: 14px;
+        padding: 1em;
+        width: 70%;
+    }
+    }
+
+    @media (max-width:450px){
+        .imagem-coleta img{
+            height:45%;
+            padding-left:0;
+        }
+
+        .dados-coleta h1 {
+        font-size: 18px;
+        font-weight: 900;
+        text-align:center
+    }
+
+        .dados-coleta p {
+        font-size: 14px;
+        line-height: 1;
+        padding-left: 1em;
+        padding-right: 1em;
+        }    
+    }
+    
 </style>
 
 <body>
