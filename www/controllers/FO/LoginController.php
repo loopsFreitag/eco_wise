@@ -23,9 +23,9 @@ class LoginController extends Controller {
 
         if (!empty($_POST["password"]) && !empty($_POST["email"])) {
             $user = R::findOne('person', "email = ?" , [$_POST["email"]]);
-            $user = R::load('user', $user->id);
+            $userdb = R::load('user', $user->id);
             
-            if ($user->status == 1) {
+            if ($userdb->status == 1) {
                 if ($user && password_verify($_POST['password'], $user->password)) {
                     session_start();
         
