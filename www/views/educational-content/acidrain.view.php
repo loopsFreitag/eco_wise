@@ -353,7 +353,7 @@ strong{
         </div>
 
         <div class="imagem">
-            <img src="/img/chuva-acida.webp" alt="">
+            <img src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2021/07/1-chuva-acida.png" alt="">
         </div>
 
         <div class="conteudo">
@@ -380,7 +380,7 @@ strong{
         </div>
 
         <div class="imagem-2">
-            <img src="/img/efeito-corrosivo.webp" alt="">
+            <img src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2021/07/1-efeito-corrosivo-chuva-acida.jpg" alt="">
         </div>
         <p class="subtitulo-imagem">Efeito corrosivo das chuvas ácidas em monumento no Camboja, na Ásia.</p>
     </aside>

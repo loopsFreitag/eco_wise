@@ -172,7 +172,7 @@ some/6.2.0/css/all.min.css">
         </div>
 
         <div class="imagem">
-            <img src="/img/queimadas-florestais.webp" alt="">
+            <img src="https://images.unsplash.com/photo-1473260079709-83c808703435?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
         </div>
         <div class="conteudo">
             <h4>Conscientização:</h4>

@@ -209,7 +209,7 @@ textarea {
                     <input type="text" value="<?= $address->uf ?>" readonly>
                     
                     <div class="button">
-                        <button type="button" onclick="opencancelModal()" class="cancel">Cancelar solicitação</button>
+                        <button type="button" onclick="opencancelModal()" class="cancel">Aceitar</button>
                     </div>
                 </form>
             <?php endif ?>

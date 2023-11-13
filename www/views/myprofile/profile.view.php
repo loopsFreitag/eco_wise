@@ -162,9 +162,9 @@ input[type="date"]{
             <div class="usuario">
                 <div class="nome-imagem">
                     <div class="imagem">
-                        <img src="/img/do-utilizador.png" alt="">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png" alt="">
                     </div>
-                    <p><?= $user->person->name ?></p>
+                    <p style=" text-transform:capitalize;"><?= $user->person->name ?></p>
                     <p><?= $user->person->email ?></p>
                     <p><?= $user->person->document ?></p>
                 </div>

@@ -19,9 +19,9 @@
     }
 
     .intern{
-        width:50%;
-        height:10em;
+        width:70%; 
         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        box-sizing:border-box;
     }
 
     .card{
@@ -58,12 +58,15 @@
         padding-top:0.4em;
     }
 
+    .int-card1 p {
+        max-width:5em;
+    }
+
     .status,.data{
         font-size:20px;
     }
     
     .data2{
-        
         font-size:20px;
     }
 </style>
@@ -72,7 +75,7 @@
 
 <div class="container">
     <div class="intern">
-        <?php foreach ($history as $collection): ?>
+            <?php foreach ($history as $collection): ?>
             <div class="card">
                 <div class="int-card1">
                     <h1>Coleta de:</h1>
@@ -92,8 +95,7 @@
                     <button type="button" onclick="window.location='/collection/<?=$collection->id?>'">Abrir coleta</button>
                 </div>
             </div>
-        
-        <?php endforeach?>
+            <?php endforeach?>
     </div>
 </div>
 
