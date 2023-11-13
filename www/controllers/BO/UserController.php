@@ -15,15 +15,15 @@ class UserController extends Controller
         $user = $this->getUserAuth();
 
         if (!$user->getDocument()) {
-            $this->hanndleError(428, "Documet missing");
+            $this->hanndleError(428, "Sem documento cadastrado");
         }
 
         if (!$user->getCountry()) {
-            $this->hanndleError(428, "Country missing");
+            $this->hanndleError(428, "Sem país cadastrado");
         }
 
         if (!$user->getBirthDate()) {
-            $this->hanndleError(428, "Birth date missing");
+            $this->hanndleError(428, "sem data cadastrada");
         }
 
         return $this->response("200", "No missing information");

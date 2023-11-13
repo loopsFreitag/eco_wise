@@ -64,11 +64,15 @@ class WasteCollectionController extends Controller {
 
         $this->validateRequest();
 
-        $address = $this->addressRegistered($user->id);
-        $address = $address->id;
-
-        if (empty($address)) {
-            $address = $this->createAdress($user->id);
+        if (!empty($_POST['dropdownaddress'])) {
+            $address = $_POST['dropdownaddress'];
+        }else{
+            $address = $this->addressRegistered($user->id);
+            $address = $address->id;
+    
+            if (empty($address)) {
+                $address = $this->createAdress($user->id);
+            }
         }
 
         $collection = R::xdispense("waste_collection");
@@ -84,17 +88,23 @@ class WasteCollectionController extends Controller {
         
         R::store($adressCollection);
         
-        $this->response(201);
+        $this->response(201, "Criado");
     }
 
     public function validateRequest() {
-        if (empty($_POST["description"]) || empty($_POST["weight"]) || empty($_POST["cep"]) || empty($_POST["number"])) {
-            $this->hanndleError(400, "missing information");
+        if (empty($_POST["description"]) || empty($_POST["weight"])) {
+
+            $this->hanndleError(400, "Informaçoes faltantes");
+        }
+        if (empty($_POST["dropdownaddress"])){
+            if (empty($_POST["cep"]) || empty($_POST["number"])){
+                $this->hanndleError(400, "Selecione algum endereço");
+            }
         }
     }
 
     public function addressRegistered($userId) {
-        return R::findOne("address", "user_id = ? and cep = ?", [$userId, $_POST["cep"]]);
+        return R::findOne("address", "user_id = ? and cep = ? and number = ? and adjunct = ?" , [$userId, $_POST["cep"], $_POST["nu,ber"], $_POST["adjunct"]]);
     }
 
     public function createAdress($userId) {
@@ -113,12 +123,15 @@ class WasteCollectionController extends Controller {
     public function cancelEvent ($request) {
         $colletion = R::load("waste_collection", $request["id"]);
 
-        $colletion->status = 3;
-
         $user = $this->getUserAuth();
 
         if ($user->type == 2)  {
             $colletion->status = 1;
+            $colletion->waste_collector = null;
+        }
+
+        if ($user->type == 1)  {
+            $colletion->status = 3;
             $colletion->waste_collector = null;
         }
 

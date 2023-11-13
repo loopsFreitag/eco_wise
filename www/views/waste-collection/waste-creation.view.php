@@ -106,6 +106,9 @@
 
     .modal {
         display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         position: fixed;
         z-index: 1;
         left: 0;
@@ -119,14 +122,15 @@
     /* Estilos do conteúdo do modal */
     .modal-content {
         background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
+        margin: 5% auto;
+        /* Adjust the percentage as needed */
         border: 1px solid #888;
-        width: 70%;
-        max-width: 600px;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        max-width: 35em;
+        padding: 2em;
     }
 
     /* Estilos para o botão de fechar */
@@ -143,6 +147,7 @@
         text-decoration: none;
         cursor: pointer;
     }
+
 
     /* Estilos dos inputs */
     .input-dentro {
@@ -292,13 +297,6 @@
         </div>
     </section>
 
-    <div id="ModalError" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p id="error-message"></p>
-            <p>Você pode adicionar as informaçoes faltantes <a href="/profile">aqui</a></p>
-        </div>
-    </div>
 
     <div id="ModalFormCollection" class="modal">
         <div class="modal-content">
@@ -336,12 +334,12 @@
                 </div>
 
                 <div class="input-dentro">
-                    <label>Selecione ou adicione um novo endereço:</label>
-                    <select>
+                    <label for="dropdownaddress">Selecione ou adicione um novo endereço:</label>
+                    <select id="dropdownaddress" name="dropdownaddress">
                         <?php $addresses = R::find('address', 'user_id = ? and status = ?', [$user->id, 1]); ?>
-
-                        <?php foreach ($addresses as $address): ?>
-                        <option value="<?= $address->id ?>"><?= $address->address ?>, <?= $address->neighborhood ?>, <?= $address->number ?>, <?= $address->adjunct ?></option>
+                        <option value=""></option>
+                        <?php foreach ($addresses as $address) : ?>
+                            <option value="<?= $address->id ?>"><?= $address->address ?>, <?= $address->neighborhood ?>, <?= $address->number ?>, <?= $address->adjunct ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -350,35 +348,24 @@
                     <label for="cep">CEP:</label>
                     <input type="text" id="cep" name="cep" placeholder="Digite o CEP" onfocusout="getCep()" required>
 
-
-
                     <label for="address">Logradouro:</label>
                     <input type="text" id="address" name="address" readonly>
-
 
                     <label for="number">Numero:</label>
                     <input type="text" id="number" name="number">
 
-
-
                     <label for="adjunct">Complemento:</label>
                     <input type="text" id="adjunct" name="adjunct">
-
-
 
                     <label for="neighborhood">Bairro:</label>
                     <input type="text" id="neighborhood" name="neighborhood" readonly>
 
-
-
                     <label for="city">Cidade:</label>
                     <input type="text" id="city" name="city" readonly>
-
 
                     <label for="uf">Estado:</label>
                     <input type="text" id="uf" name="uf" readonly>
                 </div>
-
 
                 <div class="botao-criar">
                     <button type="button" onclick="submitCollectionCreation()" class="criar">Criar Pedido</button>
@@ -386,6 +373,16 @@
             </form>
         </div>
     </div>
+
+    <div id="ModalError" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="error-message"></p>
+            <p>Você pode adicionar as informaçoes faltantes <a href="/profile">aqui</a></p>
+        </div>
+    </div>
+
+
     <script>
         function showCollectionCreationModal() {
             url = `/verifyuser`
@@ -492,14 +489,22 @@
                     body: formData,
                 })
                 .then(response => {
-                    if (response.status === 201) {
-                        return response.json()
-                    } else {
-                        throw new Error('Network response was not ok')
-                    }
+                    return response.json()
+
                 })
                 .then(data => {
-                    window.location.href = "/wastecollectioncurrent"
+                    if ('reason' in data) {
+                        var modal = document.getElementById("ModalError")
+                        var errorParagraph = document.getElementById("error-message")
+
+                        errorParagraph.innerHTML = data.reason
+                        modal.style.display = "block"
+                        return
+                    }
+
+                    if ("message" in data) {
+                        window.location.href = "/wastecollectioncurrent"
+                    }
                 })
                 .catch(error => {
                     console.error('Fetch Error:', error)
@@ -512,8 +517,8 @@
 
 
         // Get the span elements that close the modals
-        const spanError = document.getElementsByClassName("close")[0];
-        const spanFormCollection = document.getElementsByClassName("close")[1];
+        const spanFormCollection = document.getElementsByClassName("close")[0];
+        const spanError = document.getElementsByClassName("close")[1];
 
         // When the user clicks on the span, close the modal
         spanError.onclick = function() {
