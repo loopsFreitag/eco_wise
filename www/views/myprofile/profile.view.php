@@ -297,11 +297,11 @@
 
                         <div class="opcao-usuario">
                             <div class="input1">
-                                <input type="radio" id="option1" name="type" value="3" <?= ($user->type == 1) ? 'checked' : '' ?>>
+                                <input type="radio" id="option1" name="type" value="1" <?= ($user->type == 1) ? 'checked' : '' ?>>
                                 <label for="option1" class="label1">Cliente</label><br>
                             </div>
                             <div class="input2">
-                                <input type="radio" id="option2" name="type" value="3" <?= ($user->type == 2) ? 'checked' : '' ?>>
+                                <input type="radio" id="option2" name="type" value="2" <?= ($user->type == 2) ? 'checked' : '' ?>>
                                 <label for="option2" class="label2">Coletor</label><br>
                             </div>
                         </div>
