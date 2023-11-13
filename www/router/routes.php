@@ -31,6 +31,7 @@ $routes = [
     "/exclude/{user_id}" => "BO/AdminController@exclude",
     "/activate/{user_id}" => "BO/AdminController@activate",
     "/updateuser" => "BO/UserController@updateUser",
+    "/addaddress" => "BO/UserController@addAddress",
 ];
 
 $protected = [
