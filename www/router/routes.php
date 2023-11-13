@@ -27,6 +27,9 @@ $routes = [
     "/collectionHistory" => "BO/WasteCollectionController@collectionHistory",
     "/dashboard" => "BO/AdminController@index",
     "/verifycode/{collection_id}" => "BO/WasteCollectionController@verifycode",
+    "/makadm/{user_id}" => "BO/AdminController@makeadm",
+    "/exclude/{user_id}" => "BO/AdminController@exclude",
+    "/activate/{user_id}" => "BO/AdminController@activate",
 ];
 
 $protected = [
@@ -56,4 +59,7 @@ $protected = [
     "/collectionHistory" => true,
     "/dashboard" => true,
     "/verifycode" => true,
+    "/makadm" => true,
+    "/exclude" => true,
+    "/activate"=> true,
 ];

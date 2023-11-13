@@ -94,6 +94,7 @@
               <th>Id</th>
               <th>Nome</th>
               <th>Email</th>
+              <th>Tipo</th>
               <th>País</th>
               <th>Nascimento</th>
               <th>CPF</th>
@@ -106,15 +107,95 @@
                 <td><?=$user->id?></td>
                 <td><?=$user->person->name?></td>
                 <td><?=$user->person->email?></td>
+                <td>
+                    <?php if ($user->type == 1) : ?>
+                        Usuario
+                    <?php elseif($user->type == 2) : ?>
+                        Coletor
+                    <?php elseif ($user->type == 3) : ?>
+                        Admin
+                    <?php endif ?>    
+                </td>
                 <td><?=($user->person->country) ?:"<font color='red'>Não Cadastrado</font>" ?></td>
                 <td><?=($user->person->birth_date) ?:"<font color='red'>Não Cadastrado</font>"?></td>
                 <td><?=($user->person->document) ?:"<font color='red'>Não Cadastrado</font>"?></td>
-                <td><button>Tornar Admin</button></td>
-                <td><button>Excluir</button></td>       
+                <?php if ($user->type ==3 ) : ?>
+                    <td>Já é um admin</td>
+                <?php else : ?>
+                    <td><button onclick="makeadm(<?=$user->id?>)">Tornar Admin</button></td>
+                <?php endif ?>
+
+                <?php if ($user->status == 1 ) : ?>
+                    <td><button onclick="exclude(<?=$user->id?>)">Excluir</button></td>       
+                <?php else : ?>
+                    <td><button onclick="activate(<?=$user->id?>)">Ativar</button></td>
+                <?php endif ?>
             </tr>
             <?php endforeach?>
           </table>
           
     </div>
 </body>
+
+<script>
+    function makeadm(user_id) {
+        url = `/makadm/${user_id}`
+
+        fetch(url)
+            .then(function(response) {
+                if (response.status === 200) {
+                    return response.json()
+                }
+                throw new Error('Request failed with status: ' + response.status)
+            })
+            .then(function(data) {
+                if ("message" in data) {
+                    location.reload()
+                }
+            }).catch((error) => {
+                console.log(error)
+            });
+
+    }
+
+    function exclude(user_id) {
+        url = `/exclude/${user_id}`
+
+        fetch(url)
+            .then(function(response) {
+                if (response.status === 200) {
+                    return response.json()
+                }
+                throw new Error('Request failed with status: ' + response.status)
+            })
+            .then(function(data) {
+                if ("message" in data) {
+                    location.reload()
+                }
+            }).catch((error) => {
+                console.log(error)
+            });
+
+    }
+
+    function activate(user_id) {
+        url = `/activate/${user_id}`
+
+        fetch(url)
+            .then(function(response) {
+                if (response.status === 200) {
+                    return response.json()
+                }
+                throw new Error('Request failed with status: ' + response.status)
+            })
+            .then(function(data) {
+                if ("message" in data) {
+                    location.reload()
+                }
+            }).catch((error) => {
+                console.log(error)
+            });
+
+    }
+</script>
 </html>

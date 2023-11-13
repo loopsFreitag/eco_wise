@@ -20,7 +20,7 @@ class WasteCollectionController extends Controller {
 
         $openCollections = R::find("waste_collection", "status = 1 and collection_time > CURRENT_TIMESTAMP");
 
-        $collectionScheduled = R::find("waste_collection", "status = ?", [1] );
+        $collectionScheduled = R::find("waste_collection", "status = ? and waste_collector = ?", [2, $user->id] );
 
         $this->LoadView('waste-collection/waste-collection', [
             'user' => $user,
@@ -197,7 +197,7 @@ class WasteCollectionController extends Controller {
     public function collectionHistory(){
         $user = $this->getUserAuth(); 
 
-        $collectionHistory = R::find('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id,1, 2]);
+        $collectionHistory = R::find('waste_collection', 'user_id = ? and status not in (?, ?)', [$user->id,1, 2]);
 
         $this->LoadView('waste-collection/waste-history', [
             'user'=> $user,

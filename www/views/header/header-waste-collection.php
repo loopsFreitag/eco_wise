@@ -198,13 +198,17 @@ header div{
 <header>
         <div class="home"> <a href="/site/home" class="logo">EcoWise</a></div>
         <div class="historico">
-                <?php
-                    $collectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id, 1, 2]);
-                    if($collectionOnGoing->id) :
-                ?>
-                <a href="/wastecollectioncurrent" class="a-header" >Corrida</a>
+                <?php if($user->type == 1) : ?>
+                    <?php
+                        $collectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id, 1, 2]);
+                        if($collectionOnGoing->id) :
+                    ?>
+                    <a href="/wastecollectioncurrent" class="a-header" >Corrida</a>
+                    <?php else: ?>
+                    <a href="/wastecollectioncreation" class="a-header">Corrida</a>
+                    <?php endif ?>
                 <?php else: ?>
-                <a href="/wastecollectioncreation" class="a-header">Corrida</a>
+                    <a href="/wastecollection" class="a-header">Corrida</a>
                 <?php endif ?>
                 <a href="/collectionHistory" class="a-header2">Historico de coletas</a>
 
@@ -221,7 +225,7 @@ header div{
                 <ul>
                     <li><i class="fa-regular fa-user"></i><a href="/myprofile
                     ">Meu Perfil</a></li>
-                    <?php if($user->type == 1):?>
+                    <?php if($user->type == 3):?>
                         <li><i class="fa-solid fa-table-columns"></i><a href="/dashboard">Controlar</a></li>
                     <?php endif?>
                     <li><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Sair</a></li>

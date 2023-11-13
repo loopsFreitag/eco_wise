@@ -381,7 +381,7 @@
                 </ul>
             </li>
             <?php if ($user->id):?>
-                <?php if ($user->type == 2):?>
+                <?php if ($user->type == 1):?>
                     <?php
                         $collectionOnGoing = R::findOne('waste_collection', 'user_id = ? and status in (?, ?)', [$user->id, 1, 2]);
                         if($collectionOnGoing->id) :
@@ -390,7 +390,7 @@
                     <?php else: ?>
                     <li class="nav-link"><a href="/wastecollectioncreation" class="a-header">Coleta de Resíduos</a></li>
                     <?php endif ?>
-                <?php elseif($user->type == 1):?>
+                <?php elseif($user->type == 2):?>
                     <li class="nav-link"><a href="/wastecollection" class="a-header" >Coleta de Resíduos</a></li>
                 <?php endif ?>
             <?php else: ?>
@@ -423,7 +423,7 @@
                 <ul>
                     <li><i class="fa-regular fa-user"></i><a href="/myprofile
                     ">Meu Perfil</a></li>
-                    <?php if($user->type == 1):?>
+                    <?php if($user->type == 3):?>
                         <li><i class="fa-solid fa-table-columns"></i><a href="/dashboard">Controlar</a></li>
                     <?php endif?>
                     <li><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Sair</a></li>
