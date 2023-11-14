@@ -135,6 +135,36 @@ textarea {
     background-color:#0f6a67;
     cursor:pointer;
 }
+
+.codigo-coletor{
+    display: flex;
+    flex-direction: column;
+}
+.codigo-coletor label{
+    padding-bottom: 1em;
+}
+
+.codigo-coletor input{
+    margin-bottom:1em;
+    padding:1em;
+}
+
+.codigo-coletor button{
+        border: none;
+        padding: 0.5em;
+        margin-top: 0.5em;
+        background-color: #eb8383;
+        color: white;
+        border-radius: 10px;
+    }
+.codigo-coletor button:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+#close-codigo{
+    text-align: right;
+}
 </style>
 <body>
 <?php include_once(__DIR__ . "/../header/header-waste-collection.php")?>
@@ -230,13 +260,16 @@ textarea {
 
     <div id="ModalConfirmation" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            
             <form id="wasteCollectionCode">
-                <label for="code">insira o codigo fornecido:</label>
-                <input name="code">
-                <?php if ($collection) : ?>
-                    <button type="button" onclick="collectWaste(<?= $collection->id  ?>)">Encerrar coleta</button>
-                <?php endif ?>
+                <div class="codigo-coletor">
+                <span class="close" id="close-codigo">&times;</span>
+                    <label for="code">Insira o código fornecido:</label>
+                    <input name="code">
+                    <?php if ($collection) : ?>
+                        <button type="button" onclick="collectWaste(<?= $collection->id  ?>)">Encerrar coleta</button>
+                    <?php endif ?>
+                </div>
             </form>
         </div>
     </div>

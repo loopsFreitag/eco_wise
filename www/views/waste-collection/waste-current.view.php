@@ -130,6 +130,34 @@
         background-color: red;
         cursor: pointer;
     }
+
+    #wasteCollectionCancelation{
+        display: flex;
+        flex-direction: column;
+        padding: 1.5em;
+    }
+
+    #wasteCollectionCancelation label{
+        padding-bottom:1em;
+    }
+
+    #wasteCollectionCancelation input{
+        margin-bottom:1em;
+        padding:1em;
+    }
+
+    #wasteCollectionCancelation button{
+        border: none;
+        padding: 0.5em;
+        margin-top: 0.5em;
+        background-color: #eb8383;
+        color: white;
+        border-radius: 10px;
+    }
+    #wasteCollectionCancelation button:hover {
+        background-color: red;
+        cursor: pointer;
+    }
 </style>
 
 <body>
@@ -212,14 +240,16 @@
     </div>
     <div id="ModalCancel" class="modal">
         <div class="modal-content">
+            <div class="cancelamento">
             <span id="close" class="close">&times;</span>
-            <form id="wasteCollectionCancelation">
-                <label for="denny_reason">Razão do cancelamento:</label>
-                <input name="denny_reason">
-                <?php if ($collection) : ?>
-                    <button type="button" onclick="cancelCollectionCreation(<?= $collection->id ?>)">Cancelar solicitação</button>
-                <?php endif ?>
-            </form>
+                <form id="wasteCollectionCancelation">
+                    <label for="denny_reason">Razão do cancelamento:</label>
+                    <input name="denny_reason">
+                    <?php if ($collection) : ?>
+                        <button type="button" onclick="cancelCollectionCreation(<?= $collection->id ?>)">Cancelar solicitação</button>
+                    <?php endif ?>
+                </form>
+            </div>
         </div>
     </div>
 

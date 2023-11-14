@@ -44,7 +44,7 @@
         box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
         width: 80em;
         height: 40em;
-
+        padding-bottom:6em;
     }
 
     .usuario {
@@ -211,10 +211,16 @@
         cursor: pointer;
     }
 
-    @media(max-width: 800px) {
+    @media(max-width:1700px){
+       .perfil-usuario{
+        padding-top:0;
+       }
+    }
+
+    @media(max-width: 900px) {
         .container {
             width: 100%;
-            height: auto;
+            height: 100vh;
             flex-direction: column;
         }
 
