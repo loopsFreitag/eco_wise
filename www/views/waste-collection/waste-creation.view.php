@@ -378,7 +378,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <p id="error-message"></p>
-            <p>Você pode adicionar as informaçoes faltantes <a href="/profile">aqui</a></p>
+            <p>Você pode adicionar as informaçoes faltantes <a href="/myprofile">aqui</a></p>
         </div>
     </div>
 
